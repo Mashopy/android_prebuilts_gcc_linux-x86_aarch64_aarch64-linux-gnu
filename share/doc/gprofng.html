@@ -1,0 +1,3419 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- This document is the manual for gprofng, last updated 1 February 2023.
+
+Copyright (C) 2022-2023 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License,
+Version 1.3 or any later version published by the Free Software
+Foundation; with no Invariant Sections, with no Front-Cover texts,
+and with no Back-Cover Texts.  A copy of the license is included in the
+section entitled "GNU Free Documentation License."
+ -->
+<!-- Created by GNU Texinfo 6.7, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>GNU gprofng</title>
+
+<meta name="description" content="GNU gprofng">
+<meta name="keywords" content="GNU gprofng">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">GNU gprofng</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a id="toc-Introduction-1" href="#Introduction">1 Introduction</a></li>
+  <li><a id="toc-A-Brief-Overview-of-gprofng" href="#Overview">2 A Brief Overview of gprofng</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Main-Features-1" href="#Main-Features">2.1 Main Features</a></li>
+    <li><a id="toc-Sampling-versus-Tracing-1" href="#Sampling-versus-Tracing">2.2 Sampling versus Tracing</a></li>
+    <li><a id="toc-Steps-Needed-to-Create-a-Profile-1" href="#Steps-Needed-to-Create-a-Profile">2.3 Steps Needed to Create a Profile</a></li>
+  </ul></li>
+  <li><a id="toc-A-Mini-Tutorial-1" href="#A-Mini-Tutorial">3 A Mini Tutorial</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Getting-Started-1" href="#Getting-Started">3.1 Getting Started</a>
+    <ul class="no-bullet">
+      <li><a id="toc-The-Example-Program-1" href="#The-Example-Program">3.1.1 The Example Program</a></li>
+      <li><a id="toc-A-First-Profile-1" href="#A-First-Profile">3.1.2 A First Profile</a></li>
+      <li><a id="toc-The-Source-Code-View-1" href="#The-Source-Code-View">3.1.3 The Source Code View</a></li>
+      <li><a id="toc-The-Disassembly-View-1" href="#The-Disassembly-View">3.1.4 The Disassembly View</a></li>
+      <li><a id="toc-Display-and-Define-the-Metrics-1" href="#Display-and-Define-the-Metrics">3.1.5 Display and Define the Metrics</a></li>
+      <li><a id="toc-A-First-Customization-of-the-Output-1" href="#A-First-Customization-of-the-Output">3.1.6 A First Customization of the Output</a></li>
+      <li><a id="toc-Name-the-Experiment-Directory-1" href="#Name-the-Experiment-Directory">3.1.7 Name the Experiment Directory</a></li>
+      <li><a id="toc-Control-the-Number-of-Lines-in-the-Output-1" href="#Control-the-Number-of-Lines-in-the-Output">3.1.8 Control the Number of Lines in the Output</a></li>
+      <li><a id="toc-Sorting-the-Performance-Data-1" href="#Sorting-the-Performance-Data">3.1.9 Sorting the Performance Data</a></li>
+      <li><a id="toc-Scripting-1" href="#Scripting">3.1.10 Scripting</a></li>
+      <li><a id="toc-A-More-Elaborate-Example-1" href="#A-More-Elaborate-Example">3.1.11 A More Elaborate Example</a></li>
+      <li><a id="toc-The-Call-Tree-1" href="#The-Call-Tree">3.1.12 The Call Tree</a></li>
+      <li><a id="toc-More-Information-on-the-Experiment-1" href="#More-Information-on-the-Experiment">3.1.13 More Information on the Experiment</a></li>
+      <li><a id="toc-Control-the-Sampling-Frequency-1" href="#Control-the-Sampling-Frequency">3.1.14 Control the Sampling Frequency</a></li>
+      <li><a id="toc-Information-on-Load-Objects-1" href="#Information-on-Load-Objects">3.1.15 Information on Load Objects</a></li>
+    </ul></li>
+    <li><a id="toc-Support-for-Multithreading-1" href="#Support-for-Multithreading">3.2 Support for Multithreading</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Creating-a-Multithreading-Experiment-1" href="#Creating-a-Multithreading-Experiment">3.2.1 Creating a Multithreading Experiment</a></li>
+      <li><a id="toc-Commands-Specific-to-Multithreading-1" href="#Commands-Specific-to-Multithreading">3.2.2 Commands Specific to Multithreading</a></li>
+    </ul></li>
+    <li><a id="toc-Viewing-Multiple-Experiments-1" href="#Viewing-Multiple-Experiments">3.3 Viewing Multiple Experiments</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Aggregation-of-Experiments-1" href="#Aggregation-of-Experiments">3.3.1 Aggregation of Experiments</a></li>
+      <li><a id="toc-Comparison-of-Experiments-1" href="#Comparison-of-Experiments">3.3.2 Comparison of Experiments</a></li>
+    </ul></li>
+    <li><a id="toc-Profile-Hardware-Event-Counters-1" href="#Profile-Hardware-Event-Counters">3.4 Profile Hardware Event Counters</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Getting-Information-on-the-Counters-Supported-1" href="#Getting-Information-on-the-Counters-Supported">3.4.1 Getting Information on the Counters Supported</a></li>
+      <li><a id="toc-Examples-Using-Hardware-Event-Counters-1" href="#Examples-Using-Hardware-Event-Counters">3.4.2 Examples Using Hardware Event Counters</a></li>
+    </ul></li>
+    <li><a id="toc-Java-Profiling-1" href="#Java-Profiling">3.5 Java Profiling</a></li>
+  </ul></li>
+  <li><a id="toc-Terminology-1" href="#Terminology">4 Terminology</a>
+  <ul class="no-bullet">
+    <li><a id="toc-The-Program-Counter-1" href="#The-Program-Counter">4.1 The Program Counter</a></li>
+    <li><a id="toc-Inclusive-and-Exclusive-Metrics-1" href="#Inclusive-and-Exclusive-Metrics">4.2 Inclusive and Exclusive Metrics</a></li>
+    <li><a id="toc-Metric-Definitions-1" href="#Metric-Definitions">4.3 Metric Definitions</a></li>
+    <li><a id="toc-The-Viewmode-1" href="#The-Viewmode">4.4 The Viewmode</a></li>
+    <li><a id="toc-The-Selection-List-1" href="#The-Selection-List">4.5 The Selection List</a></li>
+    <li><a id="toc-Load-Objects-and-Functions-1" href="#Load-Objects-and-Functions">4.6 Load Objects and Functions</a></li>
+    <li><a id="toc-The-Concept-of-a-CPU-in-gprofng-1" href="#The-Concept-of-a-CPU-in-gprofng">4.7 The Concept of a CPU in gprofng</a></li>
+    <li><a id="toc-Hardware-Event-Counters-Explained-1" href="#Hardware-Event-Counters-Explained">4.8 Hardware Event Counters Explained</a></li>
+    <li><a id="toc-What-is-_003capath_003e_003f" href="#apath">4.9 What is &lt;apath&gt;?</a></li>
+  </ul></li>
+  <li><a id="toc-Other-Document-Formats-1" href="#Other-Document-Formats">5 Other Document Formats</a></li>
+</ul>
+</div>
+
+
+<span id="Top"></span><div class="header">
+<p>
+ &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="GNU-Gprofng"></span><h1 class="top">GNU Gprofng</h1>
+
+<p>This document is the manual for gprofng, last updated 1 February 2023.
+</p>
+<p>Copyright &copy; 2022-2023 Free Software Foundation, Inc.
+</p>
+<p>Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License,
+Version 1.3 or any later version published by the Free Software
+Foundation; with no Invariant Sections, with no Front-Cover texts,
+and with no Back-Cover Texts.  A copy of the license is included in the
+section entitled &ldquo;GNU Free Documentation License.&rdquo;
+</p>
+
+
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Introduction" accesskey="1">Introduction</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Overview" accesskey="2">A Brief Overview of gprofng</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#A-Mini-Tutorial" accesskey="3">A Mini Tutorial</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Terminology" accesskey="4">Terminology</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Other-Document-Formats" accesskey="5">Other Document Formats</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<span id="Introduction"></span><div class="header">
+<p>
+Next: <a href="#Overview" accesskey="n" rel="next">Overview</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Introduction-1"></span><h2 class="chapter">1 Introduction</h2>
+<p>The gprofng tool is the next generation profiler for Linux. It consists 
+of various commands to generate and display profile information.
+</p>
+<p>This manual starts with a tutorial how to create and interpret a profile. This
+part is highly practical and has the goal to get users up to speed as quickly
+as possible. As soon as possible, we would like to show you how to get your
+first profile on your screen.
+</p>
+<p>This is followed by more examples, covering many of the features. At the
+end of this tutorial, you should feel confident enough to tackle the more
+complex tasks.
+</p>
+<p>In a future update a more formal reference manual will be included as well.
+Since even in this tutorial we use certain terminology, we have included a
+chapter with descriptions at the end. In case you encounter unfamiliar 
+wordings or terminology, please check this chapter.
+</p>
+<p>One word of caution. In several cases we had to somewhat tweak the screen
+output in order to make it fit. This is why the output may look somewhat
+different when you try things yourself.
+</p>
+<p>For now, we wish you a smooth profiling experience with gprofng and 
+good luck tackling performance bottlenecks.
+</p>
+<hr>
+<span id="Overview"></span><div class="header">
+<p>
+Next: <a href="#A-Mini-Tutorial" accesskey="n" rel="next">A Mini Tutorial</a>, Previous: <a href="#Introduction" accesskey="p" rel="prev">Introduction</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="A-Brief-Overview-of-gprofng"></span><h2 class="chapter">2 A Brief Overview of gprofng</h2>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Main-Features" accesskey="1">Main Features</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">A high level overview.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Sampling-versus-Tracing" accesskey="2">Sampling versus Tracing</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The pros and cons of sampling versus tracing.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Steps-Needed-to-Create-a-Profile" accesskey="3">Steps Needed to Create a Profile</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How to create a profile.
+</td></tr>
+</table>
+
+<p>Before we cover this tool in quite some detail, we start with a brief overview
+of what it is, and the main features. Since we know that many of you would 
+like to get started rightaway, already in this first chapter we explain the
+basics of profiling with <code>gprofng</code>.
+</p>
+
+<hr>
+<span id="Main-Features"></span><div class="header">
+<p>
+Next: <a href="#Sampling-versus-Tracing" accesskey="n" rel="next">Sampling versus Tracing</a>, Up: <a href="#Overview" accesskey="u" rel="up">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Main-Features-1"></span><h3 class="section">2.1 Main Features</h3>
+
+<p>These are the main features of the gprofng tool:
+</p>
+<ul>
+<li> Profiling is supported for an application written in C, C++, Java, or Scala.
+
+
+</li><li> Shared libraries are supported. The information is presented at the instruction
+level.
+
+</li><li> The following multithreading programming models are supported: Pthreads,
+OpenMP, and Java threads.
+
+</li><li> This tool works with unmodified production level executables. There is no need to 
+recompile the code, but if the <code>-g</code> option has been used when building
+the application, source line level information is available.
+
+</li><li> The focus is on support for code generated with the <code>gcc</code> compiler, but 
+there is some limited support for the <code>icc</code> compiler as well. Future
+improvements and enhancements will focus on <code>gcc</code> though.
+
+</li><li> Processors from Intel, AMD, and Arm are supported, but the level of support
+depends on the architectural details. In particular, hardware event counters
+may not be supported.
+
+</li><li> Several views into the data are supported. For example, a function overview
+where the time is spent, but also a source line, disassembly, call tree and 
+a caller-callees overview are available.
+
+</li><li> Through filters, the user can zoom in on an area of interest.
+
+</li><li> Two or more profiles can be aggregated, or used in a comparison. This comparison 
+can be obtained at the function, source line, and disassembly level.
+
+</li><li> Through a scripting language, and customization of the metrics shown,
+the generation and creation of a profile can be fully automated and provide 
+tailored output.
+
+</li></ul>
+
+<hr>
+<span id="Sampling-versus-Tracing"></span><div class="header">
+<p>
+Next: <a href="#Steps-Needed-to-Create-a-Profile" accesskey="n" rel="next">Steps Needed to Create a Profile</a>, Previous: <a href="#Main-Features" accesskey="p" rel="prev">Main Features</a>, Up: <a href="#Overview" accesskey="u" rel="up">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Sampling-versus-Tracing-1"></span><h3 class="section">2.2 Sampling versus Tracing</h3>
+
+<p>A key difference with some other profiling tools is that the main data 
+collection command <code>gprofng collect app</code> mostly uses 
+<span id="index-Program-Counter-sampling"></span>
+<span id="index-PC-sampling"></span>
+Program Counter (PC) sampling
+under the hood. 
+</p>
+<p>With <em>sampling</em>, the executable is stopped at regular intervals. Each time
+it is halted, key information is gathered and stored. This includes the Program
+Counter that keeps track of where the execution is. Hence the name.
+</p>
+<p>Together with operational
+data, this information is stored in the experiment directory and can be
+viewed in the second phase.
+</p>
+<p>For example, the PC information is used to derive where the program was when
+it was halted. Since the sampling interval is known, it is relatively easy to 
+derive how much time was spent in the various parts of the program.
+</p>
+<p>The opposite technique is generally referred to as <em>tracing</em>. With
+tracing, the target is instrumented with specific calls that collect the
+requested information.
+</p>
+<p>These are some of the pros and cons of PC sampling verus tracing:
+</p>
+<ul>
+<li> Since there is no need to recompile, existing executables can be used
+and the profile measures the behaviour of exactly the same executable that is
+used in production runs.
+
+<p>With sampling, one inherently profiles a different executable because
+the calls to the instrumentation library may affect the compiler optimizations 
+and run time behaviour. 
+</p>
+</li><li> With sampling, there are very few restrictions on what can be profiled and even without
+access to the source code, a basic profile can be made.
+
+</li><li> A downside of sampling is that, depending on the sampling frequency, small 
+functions may be missed or not captured accurately. Although this is rare, 
+this may happen and is the reason why the user has control over the sampling rate.
+
+</li><li> While tracing produces precise information, sampling is statistical in nature.
+As a result, small variations may occur across seemingly identical runs. We
+have not observed more than a few percent deviation though. Especially if 
+the target job executed for a sufficiently long time.
+
+</li><li> With sampling, it is not possible to get an accurate count how often
+functions are called.
+
+</li></ul>
+
+<hr>
+<span id="Steps-Needed-to-Create-a-Profile"></span><div class="header">
+<p>
+Previous: <a href="#Sampling-versus-Tracing" accesskey="p" rel="prev">Sampling versus Tracing</a>, Up: <a href="#Overview" accesskey="u" rel="up">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Steps-Needed-to-Create-a-Profile-1"></span><h3 class="section">2.3 Steps Needed to Create a Profile</h3>
+
+<p>Creating a profile takes two steps. First the profile data needs to be 
+generated. This is followed by a viewing step to create a report from the
+information that has been gathered.
+</p>
+<p>Every gprofng command starts with <code>gprofng</code>, the name of the driver. This is followed
+by a keyword to define the high level functionality. Depending on this
+keyword, a third qualifier may be needed to further narrow down the request. 
+This combination is then followed by options that are specific to the functionality
+desired.
+</p>
+<p>The command to gather, or &ldquo;collect&rdquo;, the performance data is called 
+<code>gprofng collect app</code>. Aside from numerous options, this command takes the name
+of the target executable as an input parameter.
+</p>
+<p>Upon completion of the run, the performance data can be
+found in the newly created 
+<span id="index-Experiment-directory"></span>
+experiment directory.
+</p>
+<p>Unless explicitly specified otherwise, a default
+name for this directory is chosen. The name is <code>test.&lt;n&gt;.er</code> where
+<code>n</code> is the first integer number not in use yet for such a name.
+</p>
+<p>For example, the first time <code>gprofng collect app</code> is invoked, an experiment
+directory with the name <code>test.1.er</code> is created.
+</p>
+<p>Upon a subsequent invocation of <code>gprofng collect app</code> in the same directory,
+an experiment directory with the name <code>test.2.er</code> will be created, 
+and so forth.
+</p>
+<p>Note that <code>gprofng collect app</code> supports an option to explicitly name the experiment directory.
+Outside of the restriction that the name of this directory has to end
+with <code>.er</code>, any valid directory name can be used for this.
+</p>
+<p>Now that we have the performance data, the next step is to display it.
+</p>
+<span id="index-gprofng-display-text"></span>
+<p>The most commonly used command to view the performance information is 
+<code>gprofng display text</code>. This is a very extensive and customizable tool that 
+produces the information in ASCII format. 
+</p>
+<span id="index-gprofng-display-html"></span>
+<p>Another option is to use <code>gprofng display html</code>. This tool generates a directory with 
+files in html format. These can be viewed in a browser, allowing for easy 
+navigation through the profile data.
+</p>
+<hr>
+<span id="A-Mini-Tutorial"></span><div class="header">
+<p>
+Next: <a href="#Terminology" accesskey="n" rel="next">Terminology</a>, Previous: <a href="#Overview" accesskey="p" rel="prev">Overview</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="A-Mini-Tutorial-1"></span><h2 class="chapter">3 A Mini Tutorial</h2>
+
+<p>In this chapter we present and discuss the main functionality of <code>gprofng</code>.
+This will be a practical approach, using an example code to generate profile
+data and show how to get various performance reports. 
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Getting-Started" accesskey="1">Getting Started</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The basics of profiling with gprofng().
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Support-for-Multithreading" accesskey="2">Support for Multithreading</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Commands specific to multithreaded applications.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Viewing-Multiple-Experiments" accesskey="3">Viewing Multiple Experiments</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Analyze multiple experiments.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Profile-Hardware-Event-Counters" accesskey="4">Profile Hardware Event Counters</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How to use hardware event counters.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Java-Profiling" accesskey="5">Java Profiling</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How to profile a Java application.
+</td></tr>
+</table>
+
+<hr>
+<span id="Getting-Started"></span><div class="header">
+<p>
+Next: <a href="#Support-for-Multithreading" accesskey="n" rel="next">Support for Multithreading</a>, Up: <a href="#A-Mini-Tutorial" accesskey="u" rel="up">A Mini Tutorial</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Getting-Started-1"></span><h3 class="section">3.1 Getting Started</h3>
+
+<p>The information presented here provides a good and common basis for many 
+profiling tasks, but there are more features that you may want to leverage.
+</p>
+<p>These are covered in subsequent sections in this chapter.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#The-Example-Program" accesskey="1">The Example Program</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">A description of the example program used.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#A-First-Profile" accesskey="2">A First Profile</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How to get the first profile.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#The-Source-Code-View" accesskey="3">The Source Code View</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Display the metrics in the source code.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#The-Disassembly-View" accesskey="4">The Disassembly View</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Display the metrics at the instruction level.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Display-and-Define-the-Metrics" accesskey="5">Display and Define the Metrics</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">An example how to customize the metrics.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#A-First-Customization-of-the-Output" accesskey="6">A First Customization of the Output</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">An example how to customize the output.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Name-the-Experiment-Directory" accesskey="7">Name the Experiment Directory</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Change the name of the experiment directory.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Control-the-Number-of-Lines-in-the-Output" accesskey="8">Control the Number of Lines in the Output</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Change the number of lines in the tables.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Sorting-the-Performance-Data" accesskey="9">Sorting the Performance Data</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How to set the metric to sort by.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Scripting">Scripting</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Use a script to execute the commands.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#A-More-Elaborate-Example">A More Elaborate Example</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">An example of customization.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#The-Call-Tree">The Call Tree</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Display the dynamic call tree.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#More-Information-on-the-Experiment">More Information on the Experiment</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How to get additional statistics.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Control-the-Sampling-Frequency">Control the Sampling Frequency</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How to control the sampling granularity.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Information-on-Load-Objects">Information on Load Objects</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How to get more information on load objects.
+</td></tr>
+</table>
+
+<hr>
+<span id="The-Example-Program"></span><div class="header">
+<p>
+Next: <a href="#A-First-Profile" accesskey="n" rel="next">A First Profile</a>, Up: <a href="#Getting-Started" accesskey="u" rel="up">Getting Started</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="The-Example-Program-1"></span><h4 class="subsection">3.1.1 The Example Program</h4>
+
+<p>Throughout this guide we use the same example C code that implements the 
+multiplication of a vector of length <em>n</em> by an <em>m</em> by <em>n</em>
+matrix. The result is stored in a vector of length <em>m</em>. 
+<span id="index-Pthreads"></span>
+<span id="index-Posix-Threads"></span>
+The algorithm has been parallelized using Posix Threads, or Pthreads for short.
+</p>
+<p>The code was built using the <code>gcc</code> compiler and the name of the executable 
+is
+<span id="index-mxv_002dpthreads_002eexe"></span>
+mxv-pthreads.exe.
+</p>
+<p>The matrix sizes can be set through the <code>-m</code> and <code>-n</code> options. The
+number of threads is set with the <code>-t</code> option. To increase the duration
+of the run, the multiplication is executed repeatedly. 
+</p>
+<p>This is an example that multiplies a <em>3000</em> by <em>2000</em> matrix with
+a vector of length <em>2000</em> using <em>2</em> threads:
+</p>
+<div class="example">
+<pre class="verbatim">$ ./mxv-pthreads.exe -m 3000 -n 2000 -t 2
+mxv: error check passed - rows = 3000 columns = 2000 threads = 2
+$
+</pre></div>
+
+<p>The program performs an internal check to verify the results are correct.
+The result of this check is printed, followed by the matrix sizes and the 
+number of threads used.
+</p>
+<hr>
+<span id="A-First-Profile"></span><div class="header">
+<p>
+Next: <a href="#The-Source-Code-View" accesskey="n" rel="next">The Source Code View</a>, Previous: <a href="#The-Example-Program" accesskey="p" rel="prev">The Example Program</a>, Up: <a href="#Getting-Started" accesskey="u" rel="up">Getting Started</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="A-First-Profile-1"></span><h4 class="subsection">3.1.2 A First Profile</h4>
+
+<p>The first step is to collect the performance data. It is important to remember
+that much more information is gathered than may be shown by default. Often a
+single data collection run is sufficient to get a lot of insight.
+</p>
+<p>The <code>gprofng collect app</code> command is used for the data collection. Nothing needs to be
+changed in the way the application is executed. The only difference is that it
+is now run under control of the tool, as shown below:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng collect app ./mxv.pthreads.exe -m 3000 -n 2000 -t 1
+</pre></div>
+</td></tr></table>
+
+<p>This command produces the following output:
+</p>
+<div class="example">
+<pre class="verbatim">Creating experiment database test.1.er (Process ID: 2416504) ...
+mxv: error check passed - rows = 3000 columns = 2000 threads = 1
+</pre></div>
+
+<p>We see the message that a directory with the name <code>test.1.er</code> 
+has been created. 
+The application then completes as usual and we have our first experiment 
+directory that can be analyzed.
+</p>
+<p>The tool we use for this is called <code>gprofng display text</code>. It takes the name of
+the experiment directory as an argument.
+</p>
+<span id="index-Interpreter-mode"></span>
+<p>If invoked this way, the tool starts in the interactive <em>interpreter</em> mode.
+While in this environment, commands can be given and the tool responds. This is
+illustrated below:
+</p>
+<div class="example">
+<pre class="verbatim">$ gprofng display text test.1.er
+Warning: History and command editing is not supported on this system.
+(gp-display-text) quit
+$
+</pre></div>
+
+<span id="index-Command-line-mode"></span>
+<p>While useful in certain cases, we prefer to use this tool in command line mode,
+by specifying the commands to be issued when invoking the tool. The way to do
+this is to prepend the command with a hyphen (<code>-</code>) if used on the command
+line.
+</p>
+<p>For example,
+<span id="index-Commands_002c-functions"></span>
+with the <code>functions</code> command we request a list of the functions that 
+have been executed and their respective CPU times:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -functions test.1.er
+</pre></div>
+</td></tr></table>
+
+<div class="example">
+<pre class="verbatim">$ gprofng display text -functions test.1.er
+Functions sorted by metric: Exclusive Total CPU Time
+
+Excl.     Incl.      Name
+Total     Total
+CPU sec.  CPU sec.
+2.272     2.272      &lt;Total&gt;
+2.160     2.160      mxv_core
+0.047     0.103      init_data
+0.030     0.043      erand48_r
+0.013     0.013      __drand48_iterate
+0.013     0.056      drand48
+0.008     0.010      _int_malloc
+0.001     0.001      brk
+0.001     0.002      sysmalloc
+0.        0.001      __default_morecore
+0.        0.113      __libc_start_main
+0.        0.010      allocate_data
+0.        2.160      collector_root
+0.        2.160      driver_mxv
+0.        0.113      main
+0.        0.010      malloc
+0.        0.001      sbrk
+</pre></div>
+
+<p>As easy and simple as these steps are, we do have a first profile of our program!
+There are three columns. The first two contain the 
+<span id="index-Total-CPU-time"></span>
+<em>Total CPU Time</em>, 
+which 
+is the sum of the user and system time. See <a href="#Inclusive-and-Exclusive-Metrics">Inclusive and Exclusive Metrics</a>
+for an explanation of &ldquo;exclusive&rdquo; and &ldquo;inclusive&rdquo; times.
+</p>
+<p>The first line echoes the metric that is used to sort the output. By default, this
+is the exclusive CPU time, but the sort metric can be changed by the user.
+</p>
+<p>We then see three columns with the exclusive and inclusive CPU times, plus the
+name of the function.
+</p>
+<span id="index-Miscellaneous_002c-_003cTotal_003e"></span>
+<p>The function with the name <code>&lt;Total&gt;</code> is not a user function, but is introduced
+by <code>gprofng</code> and is used to display the accumulated metric values. In this case,
+we see that the total CPU time of this job was <code>2.272</code> seconds.
+</p>
+<p>With <code>2.160</code> seconds, function <code>mxv_core</code> is the most time 
+consuming function. It is also a leaf function.
+</p>
+<p>The next function in the list is <code>init_data</code>. Although the CPU time spent in
+this part is negligible, this is an interesting entry because the inclusive CPU
+time of <code>0.103</code> seconds is higher than the exclusive CPU time of <code>0.047</code>
+seconds. Clearly it is calling another function,
+or even more than one function. 
+See <a href="#The-Call-Tree">The Call Tree</a> for the details how to get more information on this.
+</p>
+<p>The function <code>collector_root</code> does not look familiar. It is one of the internal
+functions used by <code>gprofng collect app</code> and can be ignored. While the inclusive time is high,
+the exclusive time is zero. This means it doesn&rsquo;t contribute to the performance.
+</p>
+<p>The question is how we know where this function originates from? There is a very useful
+command to get more details on a function. See <a href="#Information-on-Load-Objects">Information on Load Objects</a>.
+</p>
+<hr>
+<span id="The-Source-Code-View"></span><div class="header">
+<p>
+Next: <a href="#The-Disassembly-View" accesskey="n" rel="next">The Disassembly View</a>, Previous: <a href="#A-First-Profile" accesskey="p" rel="prev">A First Profile</a>, Up: <a href="#Getting-Started" accesskey="u" rel="up">Getting Started</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="The-Source-Code-View-1"></span><h4 class="subsection">3.1.3 The Source Code View</h4>
+
+<p>In general, you would like to focus the tuning efforts on the most time
+consuming part(s) of the program. In this case that is easy, since 2.160
+seconds on a total of 2.272 seconds is spent in function <code>mxv_core</code>. 
+That is 95% of the total and it is time to dig deeper and look
+<span id="index-Source-level-timings"></span>
+at the time distribution at the source code level.
+</p>
+<span id="index-Commands_002c-source"></span>
+<p>The <code>source</code> command is used to accomplish this. It takes the name of the
+function, not the source filename, as an argument. This is demonstrated
+below, where the <code>gprofng display text</code> command is used to show the annotated
+source listing of function <code>mxv_core</code>.
+</p>
+<p>Please note that the source code has to be compiled with the <code>-g</code>
+option in order for the source code feature to work. Otherwise the
+location can not be determined.
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -source mxv_core test.1.er
+</pre></div>
+</td></tr></table>
+
+<p>The slightly modified output is as follows:
+</p>
+<div class="example">
+<pre class="verbatim">Source file: &lt;apath&gt;/mxv.c
+Object file: mxv-pthreads.exe (found as test.1.er/archives/...)
+Load Object: mxv-pthreads.exe (found as test.1.er/archives/...)
+
+   Excl.     Incl.
+   Total     Total
+   CPU sec.  CPU sec.
+
+   &lt;lines deleted&gt;
+                               &lt;Function: mxv_core&gt;
+   0.        0.             32. void __attribute__ ((noinline)) 
+                                mxv_core (
+                                uint64_t row_index_start, 
+                                uint64_t row_index_end,
+                                uint64_t m, uint64_t n, 
+                                double **restrict A,
+                                double *restrict b, 
+                                double *restrict c)
+   0.        0.             33. {
+   0.        0.             34.    for (uint64_t i=row_index_start; 
+                                        i&lt;=row_index_end; i++) {
+   0.        0.             35.       double row_sum = 0.0;
+## 1.687     1.687          36.       for (int64_t j=0; j&lt;n; j++)
+   0.473     0.473          37.          row_sum += A[i][j]*b[j];
+   0.        0.             38.       c[i] = row_sum;
+                            39.    }
+   0.        0.             40. }
+</pre></div>
+
+<p>The first three lines provide information on the location of the source file,
+the object file and the load object (See <a href="#Load-Objects-and-Functions">Load Objects and Functions</a>).
+</p>
+<p>Function <code>mxv_core</code> is part of a source file that has other functions
+as well. These functions will be shown, but without timing information. They
+have been removed in the output shown above.
+</p>
+<p>This is followed by the annotated source code listing. The selected metrics 
+are shown first, followed by a source line number, and the source code.
+<span id="index-Miscellaneous-_002c-_0023_0023"></span>
+The most time consuming line(s) are marked with the <code>##</code> symbol. In
+this way they are easier to find.
+</p>
+<p>What we see is that all of the time is spent in lines 36-37. 
+</p>
+<span id="index-Commands_002c-lines"></span>
+<p>A related command sometimes comes handy as well. It is called <code>lines</code>
+and displays a list of the source lines and their metrics, ordered according
+to the current sort metric (See <a href="#Sorting-the-Performance-Data">Sorting the Performance Data</a>).
+</p>
+<p>Below the command and the output. For lay-out reasons, only the top 10 is 
+shown here and the last part of the text on some lines has been replaced
+by dots.
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -lines test.1.er
+</pre></div>
+</td></tr></table>
+
+<div class="example">
+<pre class="verbatim">Lines sorted by metric: Exclusive Total CPU Time
+
+Excl.     Incl.  Name
+Total     Total
+CPU sec.  CPU sec.
+2.272     2.272  &lt;Total&gt;
+1.687     1.687  mxv_core, line 36 in &quot;mxv.c&quot;
+0.473     0.473  mxv_core, line 37 in &quot;mxv.c&quot;
+0.032     0.088  init_data, line 72 in &quot;manage_data.c&quot;
+0.030     0.043  &lt;Function: erand48_r, instructions without line numbers&gt;
+0.013     0.013  &lt;Function: __drand48_iterate, instructions without ...&gt;
+0.013     0.056  &lt;Function: drand48, instructions without line numbers&gt;
+0.012     0.012  init_data, line 77 in &quot;manage_data.c&quot;
+0.008     0.010  &lt;Function: _int_malloc, instructions without ...&gt;
+0.003     0.003  init_data, line 71 in &quot;manage_data.c&quot;
+</pre></div>
+
+<p>What this overview immediately highlights is that the next most time consuming
+source line takes 0.032 seconds only. With an inclusive time of 0.088 seconds,
+it is also clear that this branch of the code does not impact the performance.
+</p>
+<hr>
+<span id="The-Disassembly-View"></span><div class="header">
+<p>
+Next: <a href="#Display-and-Define-the-Metrics" accesskey="n" rel="next">Display and Define the Metrics</a>, Previous: <a href="#The-Source-Code-View" accesskey="p" rel="prev">The Source Code View</a>, Up: <a href="#Getting-Started" accesskey="u" rel="up">Getting Started</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="The-Disassembly-View-1"></span><h4 class="subsection">3.1.4 The Disassembly View</h4>
+
+<p>The source view is very useful to obtain more insight where the time is spent,
+but sometimes this is not sufficient. This is when the disassembly view comes
+in. It is activated with the 
+<span id="index-Commands_002c-disasm"></span>
+<code>disasm</code> 
+command and as with the source view, it displays an annotated listing. In this
+<span id="index-Instruction-level-timings"></span>
+case it shows the instructions with the metrics, interleaved with the
+source lines. The
+instructions have a reference in square brackets (<code>[</code> and <code>]</code>)
+to the source line they correspond to.
+</p>
+<p>This is what we get for our example:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -disasm mxv_core test.1.er
+</pre></div>
+</td></tr></table>
+
+<div class="example">
+<pre class="verbatim">Source file: &lt;apath&gt;/mxv.c
+Object file: mxv-pthreads.exe (found as test.1.er/archives/...)
+Load Object: mxv-pthreads.exe (found as test.1.er/archives/...)
+
+   Excl.     Incl.
+   Total     Total
+   CPU sec.  CPU sec.
+
+   &lt;lines deleted&gt;
+                        32. void __attribute__ ((noinline)) 
+                            mxv_core (
+                            uint64_t row_index_start, 
+                            uint64_t row_index_end,
+                            uint64_t m, uint64_t n, 
+                            double **restrict A,
+                            double *restrict b, 
+                            double *restrict c)
+                        33. {
+                            &lt;Function: mxv_core&gt;
+   0.        0.             [33]   4021ba:  mov    0x8(%rsp),%r10
+                        34.    for (uint64_t i=row_index_start;
+                                    i&lt;=row_index_end; i++) {
+   0.        0.             [34]   4021bf:  cmp    %rsi,%rdi
+   0.        0.             [34]   4021c2:  jbe    0x37
+   0.        0.             [34]   4021c4:  ret
+                        35.        double row_sum = 0.0;
+                        36.        for (int64_t j=0; j&lt;n; j++)
+                        37.           row_sum += A[i][j]*b[j];
+   0.        0.             [37]   4021c5:  mov    (%r8,%rdi,8),%rdx
+   0.        0.             [36]   4021c9:  mov    $0x0,%eax
+   0.        0.             [35]   4021ce:  pxor   %xmm1,%xmm1
+   0.002     0.002          [37]   4021d2:  movsd  (%rdx,%rax,8),%xmm0
+   0.096     0.096          [37]   4021d7:  mulsd  (%r9,%rax,8),%xmm0
+   0.375     0.375          [37]   4021dd:  addsd  %xmm0,%xmm1
+## 1.683     1.683          [36]   4021e1:  add    $0x1,%rax
+   0.004     0.004          [36]   4021e5:  cmp    %rax,%rcx
+   0.        0.             [36]   4021e8:  jne    0xffffffffffffffea
+                        38.        c[i] = row_sum;
+   0.        0.             [38]   4021ea:  movsd  %xmm1,(%r10,%rdi,8)
+   0.        0.             [34]   4021f0:  add    $0x1,%rdi
+   0.        0.             [34]   4021f4:  cmp    %rdi,%rsi
+   0.        0.             [34]   4021f7:  jb     0xd
+   0.        0.             [35]   4021f9:  pxor   %xmm1,%xmm1
+   0.        0.             [36]   4021fd:  test   %rcx,%rcx
+   0.        0.             [36]   402200:  jne    0xffffffffffffffc5
+   0.        0.             [36]   402202:  jmp    0xffffffffffffffe8
+                        39.    }
+                        40. }
+   0.        0.             [40]   402204:  ret
+</pre></div>
+
+<p>For each instruction, the timing values are given and we can exactly which ones
+are the most expensive. As with the source level view, the most expensive 
+instructions are market with the <code>##</code> symbol.
+</p>
+<p>As illustrated below and similar to the <code>lines</code> command, we can get 
+an overview of the instructions executed by using the 
+<span id="index-Commands_002c-pcs"></span>
+<code>pcs</code> 
+command. 
+</p>
+<p>Below the command and the output, which again has been restricted
+to 10 lines:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -pcs test.1.er
+</pre></div>
+</td></tr></table>
+
+<div class="example">
+<pre class="verbatim">PCs sorted by metric: Exclusive Total CPU Time
+
+Excl.     Incl.      Name
+Total     Total
+CPU sec.  CPU sec.
+2.272     2.272  &lt;Total&gt;
+1.683     1.683  mxv_core + 0x00000027, line 36 in &quot;mxv.c&quot;
+0.375     0.375  mxv_core + 0x00000023, line 37 in &quot;mxv.c&quot;
+0.096     0.096  mxv_core + 0x0000001D, line 37 in &quot;mxv.c&quot;
+0.027     0.027  init_data + 0x000000BD, line 72 in &quot;manage_data.c&quot;
+0.012     0.012  init_data + 0x00000117, line 77 in &quot;manage_data.c&quot;
+0.008     0.008  _int_malloc + 0x00000A45
+0.007     0.007  erand48_r + 0x00000062
+0.006     0.006  drand48 + 0x00000000
+0.005     0.005  __drand48_iterate + 0x00000005
+</pre></div>
+
+<hr>
+<span id="Display-and-Define-the-Metrics"></span><div class="header">
+<p>
+Next: <a href="#A-First-Customization-of-the-Output" accesskey="n" rel="next">A First Customization of the Output</a>, Previous: <a href="#The-Disassembly-View" accesskey="p" rel="prev">The Disassembly View</a>, Up: <a href="#Getting-Started" accesskey="u" rel="up">Getting Started</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Display-and-Define-the-Metrics-1"></span><h4 class="subsection">3.1.5 Display and Define the Metrics</h4>
+
+<p>The default metrics shown by <code>gprofng display text</code> are useful, but there is more
+recorded than displayed. We can customize the values shown by defining the 
+metrics ourselves.
+</p>
+<span id="index-Commands_002c-metric_005flist"></span>
+<p>There are two commands related to changing the metrics shown: <code>metric_list</code>
+and 
+<span id="index-Commands_002c-metrics"></span>
+<code>metrics</code>.
+</p>
+<p>The first command shows the metrics in use, plus all the metrics that have 
+been stored as part of the experiment. The second command may be used to
+define the metric list.
+</p>
+<p>In our example we get the following values for the metrics:
+</p>
+<span id="index-Commands_002c-metric_005flist-1"></span>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -metric_list test.1.er
+</pre></div>
+</td></tr></table>
+
+<div class="example">
+<pre class="verbatim">Current metrics: e.totalcpu:i.totalcpu:name
+Current Sort Metric: Exclusive Total CPU Time ( e.totalcpu )
+Available metrics:
+   Exclusive Total CPU Time: e.%totalcpu
+   Inclusive Total CPU Time: i.%totalcpu
+                       Size: size
+                 PC Address: address
+                       Name: name
+</pre></div>
+
+<p>This shows the metrics currently in use, the metric that is used to sort
+the data and all the metrics that have been recorded, but are not necessarily
+shown.
+</p>
+<span id="index-Default-metrics"></span>
+<p>In this case, the default metrics are set to the exclusive and inclusive
+total CPU times, plus the name of the function, or load object.
+</p>
+<span id="index-Commands_002c-metrics-1"></span>
+<p>The <code>metrics</code> command is used to define the metrics that need to be
+displayed. 
+</p>
+<p>For example, to display the exclusive total CPU time, both as a number and a
+percentage, use the following metric definition: <code>e.%totalcpu</code>
+</p>
+<p>Since the metrics can be tailored for different views, there is a way
+to reset them to the default. This is done through the special keyword
+<code>default</code>.
+</p>
+<hr>
+<span id="A-First-Customization-of-the-Output"></span><div class="header">
+<p>
+Next: <a href="#Name-the-Experiment-Directory" accesskey="n" rel="next">Name the Experiment Directory</a>, Previous: <a href="#Display-and-Define-the-Metrics" accesskey="p" rel="prev">Display and Define the Metrics</a>, Up: <a href="#Getting-Started" accesskey="u" rel="up">Getting Started</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="A-First-Customization-of-the-Output-1"></span><h4 class="subsection">3.1.6 A First Customization of the Output</h4>
+
+<p>With the information just given, we can customize the function overview. 
+For sake of the example, we would like to display the name of the function
+first, followed by the exclusive CPU time, given as an absolute number and 
+a percentage.
+</p>
+<p>Note that the commands are parsed in order of appearance. This is why we
+need to define the metrics <em>before</em> requesting the function overview:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -metrics name:e.%totalcpu -functions test.1.er
+</pre></div>
+</td></tr></table>
+
+<div class="example">
+<pre class="verbatim">Current metrics: name:e.%totalcpu
+Current Sort Metric: Exclusive Total CPU Time ( e.%totalcpu )
+Functions sorted by metric: Exclusive Total CPU Time
+
+Name                Excl. Total
+                    CPU
+                     sec.      %
+ &lt;Total&gt;            2.272 100.00
+ mxv_core           2.160  95.04
+ init_data          0.047   2.06
+ erand48_r          0.030   1.32
+ __drand48_iterate  0.013   0.57
+ drand48            0.013   0.57
+ _int_malloc        0.008   0.35
+ brk                0.001   0.04
+ sysmalloc          0.001   0.04
+ __default_morecore 0.      0.
+ __libc_start_main  0.      0.
+ allocate_data      0.      0.
+ collector_root     0.      0.
+ driver_mxv         0.      0.
+ main               0.      0.
+ malloc             0.      0.
+ sbrk               0.      0.
+</pre></div>
+
+<p>This was a first and simple example how to customize the output. Note that we
+did not rerun our profiling job and merely modified the display settings.
+Below we will show other and also more advanced examples of customization.
+</p>
+
+<hr>
+<span id="Name-the-Experiment-Directory"></span><div class="header">
+<p>
+Next: <a href="#Control-the-Number-of-Lines-in-the-Output" accesskey="n" rel="next">Control the Number of Lines in the Output</a>, Previous: <a href="#A-First-Customization-of-the-Output" accesskey="p" rel="prev">A First Customization of the Output</a>, Up: <a href="#Getting-Started" accesskey="u" rel="up">Getting Started</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Name-the-Experiment-Directory-1"></span><h4 class="subsection">3.1.7 Name the Experiment Directory</h4>
+
+<p>When using <code>gprofng collect app</code>, the default names for experiments work fine, but
+they are quite generic. It is often more convenient to select a more 
+descriptive name. For example, one that reflects conditions for the experiment 
+conducted.
+</p>
+<p>For this, the mutually exclusive <code>-o</code> and <code>-O</code> options come in handy. 
+Both may be used to provide a name for the experiment directory, but the
+behaviour of <code>gprofng collect app</code> is different.
+</p>
+<p>With the 
+<span id="index-Options_002c-_002do"></span>
+<code>-o</code> 
+option, an existing experiment directory is not overwritten. You either
+need to explicitly remove an existing directory first, or use a name that is not
+in use yet.
+</p>
+<p>This is in contrast with the behaviour for the
+ <span id="index-Options_002c-_002dO"></span>
+<code>-O</code> 
+option. Any existing (experiment) directory with the same name is silently 
+overwritten.
+</p>
+<p>Be aware that the name of the experiment directory has to end with <code>.er</code>.
+</p>
+<hr>
+<span id="Control-the-Number-of-Lines-in-the-Output"></span><div class="header">
+<p>
+Next: <a href="#Sorting-the-Performance-Data" accesskey="n" rel="next">Sorting the Performance Data</a>, Previous: <a href="#Name-the-Experiment-Directory" accesskey="p" rel="prev">Name the Experiment Directory</a>, Up: <a href="#Getting-Started" accesskey="u" rel="up">Getting Started</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Control-the-Number-of-Lines-in-the-Output-1"></span><h4 class="subsection">3.1.8 Control the Number of Lines in the Output</h4>
+
+<span id="index-Commands_002c-limit"></span>
+<p>The <code>limit &lt;n&gt;</code> command can be used to control the number of lines printed
+in various overviews, including the function view, but it also takes effect
+for other display commands, like <code>lines</code>.
+</p>
+<p>The argument <code>&lt;n&gt;</code> should be a positive integer number. It sets the number
+of lines in the function view. A value of zero resets the limit to the default.
+</p>
+<p>Be aware that the pseudo-function <code>&lt;Total&gt;</code> counts as a regular function.
+For example <code>limit 10</code> displays nine user level functions.
+</p>
+<hr>
+<span id="Sorting-the-Performance-Data"></span><div class="header">
+<p>
+Next: <a href="#Scripting" accesskey="n" rel="next">Scripting</a>, Previous: <a href="#Control-the-Number-of-Lines-in-the-Output" accesskey="p" rel="prev">Control the Number of Lines in the Output</a>, Up: <a href="#Getting-Started" accesskey="u" rel="up">Getting Started</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Sorting-the-Performance-Data-1"></span><h4 class="subsection">3.1.9 Sorting the Performance Data</h4>
+
+<span id="index-Commands_002c-sort"></span>
+<p>The <code>sort &lt;key&gt;</code> command sets the key to be used when sorting the 
+performance data.
+</p>
+<p>The key is a valid metric definition, but the
+<span id="index-Visibility-field"></span>
+visibility field 
+(See <a href="#Metric-Definitions">Metric Definitions</a>)
+in the metric
+definition is ignored since this does not affect the outcome of the sorting
+operation.
+For example if we set the sort key to <code>e.totalcpu</code>, the values
+will be sorted in descending order with respect to the exclusive total
+CPU time.
+</p>
+<p>The data can be sorted in reverse order by prepending the metric definition
+with a minus (<code>-</code>) sign. For example <code>sort -e.totalcpu</code>.
+</p>
+<p>A default metric for the sort operation has been defined and since this is 
+a persistent command, this default can be restored with <code>default</code> as 
+the key.
+</p>
+<hr>
+<span id="Scripting"></span><div class="header">
+<p>
+Next: <a href="#A-More-Elaborate-Example" accesskey="n" rel="next">A More Elaborate Example</a>, Previous: <a href="#Sorting-the-Performance-Data" accesskey="p" rel="prev">Sorting the Performance Data</a>, Up: <a href="#Getting-Started" accesskey="u" rel="up">Getting Started</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Scripting-1"></span><h4 class="subsection">3.1.10 Scripting</h4>
+
+<p>As is probably clear by now, the list with commands for <code>gprofng display text</code> can be
+very long. This is tedious and also error prone. Luckily, there is an easier and 
+more elegant way to control the behaviour of this tool.
+</p>
+<span id="index-Commands_002c-script"></span>
+<p>Through the <code>script</code> command, the name of a file with commands can be
+passed in. These commands are parsed and executed as if they appeared on
+the command line in the same order as encountered in the file. The commands
+in this script file can actually be mixed with commands on the command line.
+</p>
+<p>The difference between the commands in the script file and those used on the
+command line is that the latter require a leading dash (<code>-</code>) symbol.
+</p>
+<p>Comment lines are supported. They need to start with the <code>#</code> symbol.
+</p>
+<hr>
+<span id="A-More-Elaborate-Example"></span><div class="header">
+<p>
+Next: <a href="#The-Call-Tree" accesskey="n" rel="next">The Call Tree</a>, Previous: <a href="#Scripting" accesskey="p" rel="prev">Scripting</a>, Up: <a href="#Getting-Started" accesskey="u" rel="up">Getting Started</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="A-More-Elaborate-Example-1"></span><h4 class="subsection">3.1.11 A More Elaborate Example</h4>
+
+<p>With the information presented so far, we can customize our data
+gathering and display commands.
+</p>
+<p>As an example, to reflect the name of the algorithm and the number of threads 
+that were used in the experiment, we select <code>mxv.1.thr.er</code> 
+as the name of the experiment directory.
+All we then need to 
+do is to add the 
+ <span id="index-Options_002c-_002dO-1"></span>
+<code>-O</code> 
+option followed by this name on the command line when running <code>gprofng collect app</code>:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ exe=mxv-pthreads.exe
+$ m=3000
+$ n=2000
+$ gprofng collect app -O mxv.1.thr.er ./$exe -m $m -n $n -t 1
+</pre></div>
+</td></tr></table>
+
+<p>The commands to generate the profile are put into a file that we simply call
+<code>my-script</code>:
+</p>
+<div class="example">
+<pre class="verbatim">$ cat my-script
+# This is my first gprofng script
+# Set the metrics
+metrics i.%totalcpu:e.%totalcpu:name
+# Use the exclusive time to sort
+sort e.totalcpu
+# Limit the function list to 5 lines
+limit 5
+# Show the function list
+functions
+</pre></div>
+
+<p>This script file is then specified as input to the <code>gprofng display text</code> command 
+that is used to display the performance information stored in 
+<code>mxv.1.thr.er</code>:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -script my-script mxv.1.thr.er
+</pre></div>
+</td></tr></table>
+
+<p>The command above produces the following output:
+</p>
+<div class="example">
+<pre class="verbatim"># This is my first gprofng script
+# Set the metrics
+Current metrics: i.%totalcpu:e.%totalcpu:name
+Current Sort Metric: Exclusive Total CPU Time ( e.%totalcpu )
+# Use the exclusive time to sort
+Current Sort Metric: Exclusive Total CPU Time ( e.%totalcpu )
+# Limit the function list to 5 lines
+Print limit set to 5
+# Show the function list
+Functions sorted by metric: Exclusive Total CPU Time
+
+Incl. Total   Excl. Total    Name
+CPU           CPU
+ sec.      %   sec.      %
+2.272 100.00  2.272 100.00   &lt;Total&gt;
+2.159  95.00  2.159  95.00   mxv_core
+0.102   4.48  0.054   2.37   init_data
+0.035   1.54  0.025   1.10   erand48_r
+0.048   2.11  0.013   0.57   drand48
+</pre></div>
+
+<p>In the first part of the output, our comment lines in the script file are 
+shown. These are interleaved with an acknowledgement message for the commands.
+</p>
+<p>This is followed by a profile consisting of 5 lines only. For both metrics,
+the percentages plus the timings are given. The numbers are sorted with respect 
+to the exclusive total CPU time.
+</p>
+<p>It is now immediately clear that function <code>mxv_core</code> is responsbile for
+95% of the CPU time and <code>init_data</code> takes 4.5% only.
+</p>
+<p>This is also where we see sampling in action. Although this is exactly the
+same job we profiled before, the timings are somewhat different, but the
+differences are very small.
+</p>
+<hr>
+<span id="The-Call-Tree"></span><div class="header">
+<p>
+Next: <a href="#More-Information-on-the-Experiment" accesskey="n" rel="next">More Information on the Experiment</a>, Previous: <a href="#A-More-Elaborate-Example" accesskey="p" rel="prev">A More Elaborate Example</a>, Up: <a href="#Getting-Started" accesskey="u" rel="up">Getting Started</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="The-Call-Tree-1"></span><h4 class="subsection">3.1.12 The Call Tree</h4>
+
+<p>The call tree shows the dynamic hierarchy of the application by displaying the
+functions executed and their parent. It helps to find the most expensive path
+in the program.
+</p>
+<span id="index-Commands_002c-calltree"></span>
+<p>This feature is enabled through the <code>calltree</code> command. This is how to get
+this tree for our current experiment:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -calltree mxv.1.thr.er
+</pre></div>
+</td></tr></table>
+
+<p>This displays the following structure:
+</p>
+<div class="example">
+<pre class="verbatim">Functions Call Tree. Metric: Attributed Total CPU Time
+
+Attr.      Name
+Total
+CPU sec.
+2.272      +-&lt;Total&gt;
+2.159        +-collector_root
+2.159        |  +-driver_mxv
+2.159        |    +-mxv_core
+0.114        +-__libc_start_main
+0.114          +-main
+0.102            +-init_data
+0.048            |  +-drand48
+0.035            |    +-erand48_r
+0.010            |      +-__drand48_iterate
+0.011            +-allocate_data
+0.011            |  +-malloc
+0.011            |    +-_int_malloc
+0.001            |      +-sysmalloc
+0.001            +-check_results
+0.001              +-malloc
+0.001                +-_int_malloc
+</pre></div>
+
+<p>At first sight this may not be what you expected and some explanation is in
+place.
+</p>
+<p>First of all, function <code>collector_root</code> is internal to <code>gprofng</code> and
+should be hidden to the user. This is part of a planned future enhancement.
+</p>
+<p>Recall that the <code>objects</code> and <code>fsingle</code> commands are very useful
+to find out more about load objects in general, but also to help identify
+an unknown entry in the function overview. See <a href="#Load-Objects-and-Functions">Load Objects and Functions</a>.
+</p>
+<p>Another thing to note is that there are two main branches. The one under
+<code>collector_root</code> and the second one under <code>__libc_start_main</code>.
+This reflects the fact that we are executing a parallel program. Even though
+we only used one thread for this run, this is still executed in a separate
+path.
+</p>
+<p>The main, sequential part of the program is displayed under <code>main</code> and
+shows the functions called and the time they took.
+</p>
+<p>There are two things worth noting for the call tree feature:
+</p>
+<ul>
+<li> This is a dynamic tree and since sampling is used, it most likely looks
+slighlty different across seemingly identical profile runs. In case the
+run times are short, it is worth considering to use a high resolution
+through the 
+<span id="index-Options_002c-_002dp"></span>
+<code>-p</code> 
+option. For example to use <code>-p hi</code> to increase the sampling rate.
+
+</li><li> In case hardware event counters have been enabled 
+(See <a href="#Profile-Hardware-Event-Counters">Profile Hardware Event Counters</a>), these values are also displayed
+in the call tree view.
+
+</li></ul>
+
+<hr>
+<span id="More-Information-on-the-Experiment"></span><div class="header">
+<p>
+Next: <a href="#Control-the-Sampling-Frequency" accesskey="n" rel="next">Control the Sampling Frequency</a>, Previous: <a href="#The-Call-Tree" accesskey="p" rel="prev">The Call Tree</a>, Up: <a href="#Getting-Started" accesskey="u" rel="up">Getting Started</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="More-Information-on-the-Experiment-1"></span><h4 class="subsection">3.1.13 More Information on the Experiment</h4>
+
+<p>The experiment directory not only contains performance related data. Several
+system characteristics, the actually command executed, and some global 
+performance statistics can be displayed.
+</p>
+<span id="index-Commands_002c-header"></span>
+<p>The <code>header</code> command displays information about the experiment(s).
+For example, this is the command to extract this data from for our experiment 
+directory:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -header mxv.1.thr.er
+</pre></div>
+</td></tr></table>
+
+<p>The above command prints the following information. Note that some of the
+lay-out and the information has been modified. The textual changes are 
+marked with the <code>&lt;</code> and <code>&gt;</code> symbols.
+</p>
+<div class="example">
+<pre class="verbatim">Experiment: mxv.1.thr.er
+No errors
+No warnings
+Archive command `gp-archive -n -a on 
+         --outfile &lt;exp_dir&gt;/archive.log &lt;exp_dir&gt;'
+
+Target command (64-bit): './mxv-pthreads.exe -m 3000 -n 2000 -t 1'
+Process pid 30591, ppid 30589, pgrp 30551, sid 30468
+Current working directory: &lt;cwd&gt;
+Collector version: `2.36.50'; experiment version 12.4 (64-bit)
+Host `&lt;hostname&gt;', OS `Linux &lt;version&gt;', page size 4096, 
+     architecture `x86_64'
+  16 CPUs, clock speed 1995 MHz.
+  Memory: 30871514 pages @  4096 = 120591 MB.
+Data collection parameters:
+  Clock-profiling, interval = 997 microsecs.
+  Periodic sampling, 1 secs.
+  Follow descendant processes from: fork|exec|combo
+
+Experiment started &lt;date and time&gt;
+
+Experiment Ended: 2.293162658
+Data Collection Duration: 2.293162658
+</pre></div>
+
+<p>The output above may assist in troubleshooting, or to verify some of the
+operational conditions and we recommand to include this command when 
+generating a profile.
+</p>
+<span id="index-Options_002c-_002dC"></span>
+<p>Related to this command there is a useful option to record your own comment(s) in 
+an experiment.
+To this end, use the <code>-C</code> option on the <code>gprofng collect app</code> tool to
+specify a comment string. Up to ten comment lines can be included. 
+These comments are displayed with the <code>header</code> command on
+the <code>gprofng display text</code> tool.
+</p>
+<span id="index-Commands_002c-overview"></span>
+<p>The <code>overview</code> command displays information on the experiment(s) and also
+shows a summary of the values for the metric(s) used. This is an example how to
+use it on our newly created experiment directory:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -overview mxv.1.thr.er
+</pre></div>
+</td></tr></table>
+
+<div class="example">
+<pre class="verbatim">Experiment(s):
+
+Experiment      :mxv.1.thr.er
+  Target        : './mxv-pthreads.exe -m 3000 -n 2000 -t 1'
+  Host          : &lt;hostname&gt; (&lt;ISA&gt;, Linux &lt;version&gt;)
+  Start Time    : &lt;date and time&gt;
+  Duration      : 2.293 Seconds
+
+Metrics:
+
+  Experiment Duration (Seconds): [2.293]
+  Clock Profiling
+    [X]Total CPU Time - totalcpu (Seconds): [*2.272]
+
+Notes: '*' indicates hot metrics, '[X]' indicates currently enabled 
+       metrics.
+       The metrics command can be used to change selections. The 
+       metric_list command lists all available metrics.
+</pre></div>
+
+<p>This command provides a dashboard overview that helps to easily identify
+where the time is spent and in case hardware event counters are used, it
+shows their total values.
+</p>
+<hr>
+<span id="Control-the-Sampling-Frequency"></span><div class="header">
+<p>
+Next: <a href="#Information-on-Load-Objects" accesskey="n" rel="next">Information on Load Objects</a>, Previous: <a href="#More-Information-on-the-Experiment" accesskey="p" rel="prev">More Information on the Experiment</a>, Up: <a href="#Getting-Started" accesskey="u" rel="up">Getting Started</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Control-the-Sampling-Frequency-1"></span><h4 class="subsection">3.1.14 Control the Sampling Frequency</h4>
+
+<p>So far we did not talk about the frequency of the sampling process, but in
+some cases it is useful to change the default of 10 milliseconds.
+</p>
+<p>The advantage of increasing the sampling frequency is that functions that
+do not take much time per invocation are more accurately captured. The
+downside is that more data is gathered. This has an impact on the overhead
+of the collection process and more disk space is required. 
+</p>
+<p>In general this is not an immediate concern, but with heavily threaded
+applications that run for an extended period of time, increasing the 
+frequency may have a more noticeable impact.
+</p>
+<span id="index-Options_002c-_002dp-1"></span>
+<p>The <code>-p</code> option on the <code>gprofng collect app</code> tool is used to enable or disable
+clock based profiling, or to explicitly set the sampling rate. 
+<span id="index-Sampling-interval"></span>
+This option takes one of the following keywords:
+</p>
+<dl compact="compact">
+<dt><code>off</code></dt>
+<dd><p>Disable clock based profiling.
+</p>
+</dd>
+<dt><code>on</code></dt>
+<dd><p>Enable clock based profiling with a per thread sampling interval of 10 ms. This is the default.
+</p>
+</dd>
+<dt><code>lo</code></dt>
+<dd><p>Enable clock based profiling with a per thread sampling interval of 100 ms.
+</p>
+</dd>
+<dt><code>hi</code></dt>
+<dd><p>Enable clock based profiling with a per thread sampling interval of 1 ms.
+</p>
+</dd>
+<dt><code>&lt;value&gt;</code></dt>
+<dd><p>Enable clock based profiling with a per thread sampling interval of &lt;value&gt;. 
+</p>
+</dd>
+</dl>
+
+<p>One may wonder why there is an option to disable clock based profiling. This
+is because by default, it is enabled when conducting hardware event counter
+experiments (See <a href="#Profile-Hardware-Event-Counters">Profile Hardware Event Counters</a>).
+With the <code>-p off</code> option, this can be disabled.
+</p>
+<p>If an explicit value is set for the sampling, the number can be an integer or a 
+floating-point number.
+A  suffix of <code>u</code> for microseconds, or <code>m</code> for milliseconds is supported. 
+If no suffix is used, the value is assumed to be in milliseconds.
+</p>
+<p>If the value is smaller than the clock profiling minimum, a warning message is issued
+and it is set to the minimum.
+In case it is not a multiple of the clock profiling resolution, it is silently rounded 
+down to the nearest multiple of the clock resolution. 
+</p>
+<p>If the value exceeds the clock profiling maximum, is negative, or zero, an error is 
+reported.
+</p>
+<span id="index-Commands_002c-header-1"></span>
+<p>Note that the <code>header</code> command echoes the sampling rate used.
+</p>
+<hr>
+<span id="Information-on-Load-Objects"></span><div class="header">
+<p>
+Previous: <a href="#Control-the-Sampling-Frequency" accesskey="p" rel="prev">Control the Sampling Frequency</a>, Up: <a href="#Getting-Started" accesskey="u" rel="up">Getting Started</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Information-on-Load-Objects-1"></span><h4 class="subsection">3.1.15 Information on Load Objects</h4>
+
+<p>It may happen that the function list contains a function that is not known to 
+the user. This can easily happen with library functions for example.
+Luckily there are three commands that come in handy then. 
+</p>
+<span id="index-Commands_002c-objects"></span>
+<span id="index-Commands_002c-fsingle"></span>
+<span id="index-Commands_002c-fsummary"></span>
+<p>These commands are <code>objects</code>, <code>fsingle</code>, and <code>fsummary</code>. 
+They provide details on
+<span id="index-Load-objects"></span>
+load objects (See <a href="#Load-Objects-and-Functions">Load Objects and Functions</a>).
+</p>
+<p>The <code>objects</code> command lists all load objects that have been referenced 
+during the performance experiment.
+Below we show the command and the result for our profile job. Like before, 
+the (long) path names in the output have been shortened and replaced by the 
+<span id="index-Miscellaneous_002c-_003capath_003e"></span>
+<code>&lt;apath&gt;</code> symbol that represents an absolute directory path.
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -objects mxv.1.thr.er
+</pre></div>
+</td></tr></table>
+
+<p>The output includes the name and path of the target executable:
+</p>
+<div class="example">
+<pre class="verbatim"> &lt;Unknown&gt; (&lt;Unknown&gt;)
+ &lt;mxv-pthreads.exe&gt; (&lt;apath&gt;/mxv-pthreads.exe)
+ &lt;librt-2.17.so&gt; (/usr/lib64/librt-2.17.so)
+ &lt;libdl-2.17.so&gt; (/usr/lib64/libdl-2.17.so)
+ &lt;libbfd-2.36.50.20210505.so&gt; (&lt;apath&gt;/libbfd-2.36.50 &lt;etc&gt;)
+ &lt;libopcodes-2.36.50.20210505.so&gt; (&lt;apath&gt;/libopcodes-2. &lt;etc&gt;)
+ &lt;libc-2.17.so&gt; (/usr/lib64/libc-2.17.so)
+ &lt;libpthread-2.17.so&gt; (/usr/lib64/libpthread-2.17.so)
+ &lt;libm-2.17.so&gt; (/usr/lib64/libm-2.17.so)
+ &lt;libgp-collector.so&gt; (&lt;apath&gt;/libgp-collector.so)
+ &lt;ld-2.17.so&gt; (/usr/lib64/ld-2.17.so)
+ &lt;DYNAMIC_FUNCTIONS&gt; (DYNAMIC_FUNCTIONS)
+</pre></div>
+
+<span id="index-Commands_002c-fsingle-1"></span>
+<p>The <code>fsingle</code> command may be used to get more details on a specific entry 
+in the function view, say. For example, the command below provides additional
+information on the <code>collector_root</code> function shown in the function overview.
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -fsingle collector_root mxv.1.thr.er
+</pre></div>
+</td></tr></table>
+
+<p>Below the output from this command. It has been somewhat modified to match the
+display requirements.
+</p>
+<div class="example">
+<pre class="verbatim">collector_root
+  Exclusive Total CPU Time: 0.    (  0. %)
+  Inclusive Total CPU Time: 2.159 ( 95.0%)
+            Size:   401
+      PC Address: 10:0x0001db60
+     Source File: &lt;apath&gt;/dispatcher.c
+     Object File: mxv.1.thr.er/archives/libgp-collector.so_HpzZ6wMR-3b
+     Load Object: &lt;apath&gt;/libgp-collector.so
+    Mangled Name:
+         Aliases:
+</pre></div>
+
+<p>In this table we not only see how much time was spent in this function, we
+also see where it originates from. In addition to this, the size and start
+address are given as well. If the source code location is known it is also 
+shown here.
+</p>
+<span id="index-Commands_002c-fsummary-1"></span>
+<p>The related <code>fsummary</code> command displays the same information as 
+<code>fsingle</code>, but for all functions in the function overview, 
+including <code>&lt;Total&gt;</code>:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -fsummary mxv.1.thr.er
+</pre></div>
+</td></tr></table>
+
+<div class="example">
+<pre class="verbatim">Functions sorted by metric: Exclusive Total CPU Time
+
+&lt;Total&gt;
+  Exclusive Total CPU Time: 2.272 (100.0%)
+  Inclusive Total CPU Time: 2.272 (100.0%)
+            Size:     0
+      PC Address: 1:0x00000000
+     Source File: (unknown)
+     Object File: (unknown)
+     Load Object: &lt;Total&gt;
+    Mangled Name:
+         Aliases:
+
+mxv_core
+  Exclusive Total CPU Time: 2.159 ( 95.0%)
+  Inclusive Total CPU Time: 2.159 ( 95.0%)
+            Size:    75
+      PC Address: 2:0x000021ba
+     Source File: &lt;apath&gt;/mxv.c
+     Object File: mxv.1.thr.er/archives/mxv-pthreads.exe_hRxWdccbJPc
+     Load Object: &lt;apath&gt;/mxv-pthreads.exe
+    Mangled Name:
+         Aliases:
+
+          ... etc ...
+</pre></div>
+
+<hr>
+<span id="Support-for-Multithreading"></span><div class="header">
+<p>
+Next: <a href="#Viewing-Multiple-Experiments" accesskey="n" rel="next">Viewing Multiple Experiments</a>, Previous: <a href="#Getting-Started" accesskey="p" rel="prev">Getting Started</a>, Up: <a href="#A-Mini-Tutorial" accesskey="u" rel="up">A Mini Tutorial</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Support-for-Multithreading-1"></span><h3 class="section">3.2 Support for Multithreading</h3>
+
+<p>In this chapter we introduce and discuss the support for multithreading. As
+is shown below, nothing needs to be changed when collecting the performance 
+data.
+</p>
+<p>The difference is that additional commands are available to get more 
+information on the parallel environment, plus that several filters allow
+the user to zoom in on specific threads.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Creating-a-Multithreading-Experiment" accesskey="1">Creating a Multithreading Experiment</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Commands-Specific-to-Multithreading" accesskey="2">Commands Specific to Multithreading</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<span id="Creating-a-Multithreading-Experiment"></span><div class="header">
+<p>
+Next: <a href="#Commands-Specific-to-Multithreading" accesskey="n" rel="next">Commands Specific to Multithreading</a>, Up: <a href="#Support-for-Multithreading" accesskey="u" rel="up">Support for Multithreading</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Creating-a-Multithreading-Experiment-1"></span><h4 class="subsection">3.2.1 Creating a Multithreading Experiment</h4>
+
+<p>We demonstrate the support for multithreading using the same code and settings
+as before, but this time we use 2 threads:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ exe=mxv-pthreads.exe
+$ m=3000
+$ n=2000
+$ gprofng collect app -O mxv.2.thr.er ./$exe -m $m -n $n -t 2
+</pre></div>
+</td></tr></table>
+
+<p>First of all, note that we did not change anything, other than setting the 
+number of threads to 2. Nothing special is needed to profile a multithreaded
+job when using <code>gprofng</code>.
+</p>
+<p>The same is true when displaying the performance results. The same commands
+that we used before work unmodified. For example, this is all that is needed to 
+get a function overview:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gpprofng display text -limit 10 -functions mxv.2.thr.er
+</pre></div>
+</td></tr></table>
+
+<p>This produces the following familiar looking output:
+</p>
+<div class="example">
+<pre class="verbatim">Print limit set to 10
+Functions sorted by metric: Exclusive Total CPU Time
+
+Excl.     Incl.      Name
+Total     Total
+CPU sec.  CPU sec.
+2.268     2.268      &lt;Total&gt;
+2.155     2.155      mxv_core
+0.044     0.103      init_data
+0.030     0.046      erand48_r
+0.016     0.016      __drand48_iterate
+0.013     0.059      drand48
+0.008     0.011      _int_malloc
+0.003     0.003      brk
+0.        0.003      __default_morecore
+0.        0.114      __libc_start_main
+</pre></div>
+
+<hr>
+<span id="Commands-Specific-to-Multithreading"></span><div class="header">
+<p>
+Previous: <a href="#Creating-a-Multithreading-Experiment" accesskey="p" rel="prev">Creating a Multithreading Experiment</a>, Up: <a href="#Support-for-Multithreading" accesskey="u" rel="up">Support for Multithreading</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Commands-Specific-to-Multithreading-1"></span><h4 class="subsection">3.2.2 Commands Specific to Multithreading</h4>
+
+<p>The function overview shown above shows the results aggregated over all the 
+threads. The interesting new element is that we can also look at the 
+performance data for the individual threads.
+</p>
+<span id="index-Commands_002c-thread_005flist"></span>
+<p>The <code>thread_list</code> command displays how many threads have been used:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -thread_list mxv.2.thr.er
+</pre></div>
+</td></tr></table>
+
+<p>This produces the following output, showing that three threads have
+been used:
+</p>
+<div class="example">
+<pre class="verbatim">Exp Sel Total
+=== === =====
+  1 all     3
+</pre></div>
+
+<p>The output confirms there is one experiment and that by default all
+threads are selected.
+</p>
+<p>It may seem surprising to see three threads here, since we used the 
+<code>-t 2</code> option, but it is common for a Pthreads program to use one 
+additional thread. This is typically the thread that runs from start to 
+finish and handles the sequential portions of the code, as well as takes
+care of managing the threads. 
+</p>
+<p>It is no different in our example code. At some point, the main thread 
+creates and activates the two threads that perform the multiplication 
+of the matrix with the vector. Upon completion of this computation,
+the main thread continues.
+</p>
+<span id="index-Commands_002c-threads"></span>
+<p>The <code>threads</code> command is simple, yet very powerful. It shows the
+total value of the metrics for each thread. To make it easier to 
+interpret the data, we modify the metrics to include percentages:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -metrics e.%totalcpu -threads mxv.2.thr.er
+</pre></div>
+</td></tr></table>
+
+<p>The command above produces the following overview:
+</p>
+<div class="example">
+<pre class="verbatim">Current metrics: e.%totalcpu:name
+Current Sort Metric: Exclusive Total CPU Time ( e.%totalcpu )
+Objects sorted by metric: Exclusive Total CPU Time
+
+Excl. Total    Name
+CPU
+ sec.      %
+2.258 100.00   &lt;Total&gt;
+1.075  47.59   Process 1, Thread 3
+1.070  47.37   Process 1, Thread 2
+0.114   5.03   Process 1, Thread 1
+</pre></div>
+
+<p>The first line gives the total CPU time accumulated over the threads
+selected. This is followed by the metric value(s) for each thread.
+</p>
+<p>From this it is clear that the main thread is responsible for 5% of
+the total CPU time, while the other two threads take 47% each.
+</p>
+<p>This view is ideally suited to verify if there any load balancing
+issues and also to find the most time consuming thread(s).
+</p>
+<span id="index-Filters_002c-Thread-selection"></span>
+<p>While useful, often more information than this is needed. This is
+<span id="index-Commands_002c-thread_005fselect"></span>
+where the thread selection filter comes in. Through the <code>thread_select</code>
+command, one or more threads may be selected 
+(See <a href="#The-Selection-List">The Selection List</a> how to define the selection list).
+</p>
+<p>Since it is most common to use this command in a script, we do so as
+well here. Below the script we are using:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example"># Define the metrics
+metrics e.%totalcpu
+# Limit the output to 10 lines
+limit 10
+# Get the function overview for thread 1
+thread_select 1
+functions
+# Get the function overview for thread 2
+thread_select 2
+functions
+# Get the function overview for thread 3
+thread_select 3
+functions
+</pre></div>
+</td></tr></table>
+
+<p>The definition of the metrics and the output limiter has been shown and
+explained before and will be ignored. The new command we focus on is 
+<span id="index-Commands_002c-thread_005fselect-1"></span>
+<code>thread_select</code>.
+</p>
+<p>This command takes a list (See <a href="#The-Selection-List">The Selection List</a>) to select specific
+threads. In this case we simply use the individual thread numbers that we
+obtained with the <code>thread_list</code> command earlier.
+</p>
+<p>This restricts the output of the <code>functions</code> command to the thread
+number(s) specified. This means that the script above shows which 
+function(s) each thread executes and how much CPU time they consumed.
+Both the timings and their percentages are given.
+</p>
+<p>This is the relevant part of the output for the first thread:
+</p>
+<div class="example">
+<pre class="verbatim"># Get the function overview for thread 1
+Exp Sel Total
+=== === =====
+  1 1       3
+Functions sorted by metric: Exclusive Total CPU Time
+
+Excl. Total    Name
+CPU
+ sec.      %
+0.114 100.00   &lt;Total&gt;
+0.051  44.74   init_data
+0.028  24.56   erand48_r
+0.017  14.91   __drand48_iterate
+0.010   8.77   _int_malloc
+0.008   7.02   drand48
+0.      0.     __libc_start_main
+0.      0.     allocate_data
+0.      0.     main
+0.      0.     malloc
+</pre></div>
+
+<p>As usual, the comment lines are echoed. This is followed by a confirmation
+of our selection. We see that indeed thread 1 has been selected. What is
+displayed next is the function overview for this particular thread. Due to
+the <code>limit 10</code> command, there are ten entries in this list.
+</p>
+<p>Below are the overviews for threads 2 and 3 respectively. We see that all
+of the CPU time is spent in function <code>mxv_core</code> and that this time
+is approximately the same for both threads.
+</p>
+<div class="example">
+<pre class="verbatim"># Get the function overview for thread 2
+Exp Sel Total
+=== === =====
+  1 2       3
+Functions sorted by metric: Exclusive Total CPU Time
+
+Excl. Total    Name
+CPU
+ sec.      %
+1.072 100.00   &lt;Total&gt;
+1.072 100.00   mxv_core
+0.      0.     collector_root
+0.      0.     driver_mxv
+
+# Get the function overview for thread 3
+Exp Sel Total
+=== === =====
+  1 3       3
+Functions sorted by metric: Exclusive Total CPU Time
+
+Excl. Total    Name
+CPU
+ sec.      %
+1.076 100.00   &lt;Total&gt;
+1.076 100.00   mxv_core
+0.      0.     collector_root
+0.      0.     driver_mxv
+</pre></div>
+
+<p>When analyzing the performance of a multithreaded application, it is sometimes
+useful to know whether threads have mostly executed on the same core, say, or
+if they have wandered across multiple cores. This sort of stickiness is usually 
+referred to as
+<span id="index-Thread-affinity"></span>
+<em>thread affinity</em>.
+</p>
+<p>Similar to the commands for the threads, there are several commands related 
+to the usage of the cores, or <em>CPUs</em> as they are called in <code>gprofng</code>
+(See <a href="#The-Concept-of-a-CPU-in-gprofng">The Concept of a CPU in gprofng</a>).
+</p>
+<p>In order to have some more interesting data to look at, we created a new
+experiment, this time using 8 threads:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ exe=mxv-pthreads.exe
+$ m=3000
+$ n=2000
+$ gprofng collect app -O mxv.8.thr.er ./$exe -m $m -n $n -t 8
+</pre></div>
+</td></tr></table>
+
+<span id="index-Commands_002c-cpu_005flist"></span>
+<p>Similar to the <code>thread_list</code> command, the <code>cpu_list</code> command 
+displays how many CPUs have been used. 
+<span id="index-Commands_002c-cpus"></span>
+The equivalent of the <code>threads</code> threads command, is the <code>cpus</code> 
+command, which shows the CPU numbers that were used and how much time was 
+spent on each of them. Both are demonstrated below.
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -metrics e.%totalcpu -cpu_list -cpus mxv.8.thr.er
+</pre></div>
+</td></tr></table>
+
+<p>This command produces the following output:
+</p>
+<div class="example">
+<pre class="verbatim">Current metrics: e.%totalcpu:name
+Current Sort Metric: Exclusive Total CPU Time ( e.%totalcpu )
+Exp Sel Total
+=== === =====
+  1 all    10
+Objects sorted by metric: Exclusive Total CPU Time
+
+Excl. Total    Name
+CPU
+ sec.      %
+2.310 100.00   &lt;Total&gt;
+0.286  12.39   CPU 7
+0.284  12.30   CPU 13
+0.282  12.21   CPU 5
+0.280  12.13   CPU 14
+0.266  11.52   CPU 9
+0.265  11.48   CPU 2
+0.264  11.44   CPU 11
+0.194   8.42   CPU 0
+0.114   4.92   CPU 1
+0.074   3.19   CPU 15
+</pre></div>
+
+
+<p>What we see in this table is that a total of 10 CPUs have been used. This is
+followed by a list with all the CPU numbers that have been used during the 
+run. For each CPU it is shown how much time was spent on it.
+</p>
+<p>While the table with thread times shown earlier may point at a load imbalance
+in the application, this overview has a different purpose.
+</p>
+<p>For example, we see that 10 CPUs have been used, but we know that the 
+application uses 9 threads only.
+This means that at least one thread has executed on more than one CPU. In 
+itself this is not something to worry about, but warrants a deeper 
+investigation.
+</p>
+<p>Honesty dictates that next we performed a pre-analysis to find out 
+which thread(s) have been running on more than one CPU. We found this 
+to be thread 7. It has executed on CPUs 0 and 15.
+</p>
+<p>With this knowledge, we wrote the script shown below. It zooms in on
+the behaviour of thread 7.
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example"># Define the metrics
+metrics e.%totalcpu
+# Limit the output to 10 lines
+limit 10
+functions
+# Get the function overview for CPU 0
+cpu_select 0
+functions
+# Get the function overview for CPU 15
+cpu_select 15
+functions
+</pre></div>
+</td></tr></table>
+
+<p>From the earlier shown threads overview, we know that thread 7 has
+used <code>0.268</code> seconds of CPU time..
+</p>
+<p>By selecting CPUs 0 and 15, respectively, we get the following
+function overviews:
+</p>
+<div class="example">
+<pre class="verbatim"># Get the function overview for CPU 0
+Exp Sel Total
+=== === =====
+  1 0      10
+Functions sorted by metric: Exclusive Total CPU Time
+
+Excl. Total    Name
+CPU
+ sec.      %
+0.194 100.00   &lt;Total&gt;
+0.194 100.00   mxv_core
+0.      0.     collector_root
+0.      0.     driver_mxv
+
+# Get the function overview for CPU 15
+Exp Sel Total
+=== === =====
+  1 15     10
+Functions sorted by metric: Exclusive Total CPU Time
+
+Excl. Total    Name
+CPU
+ sec.      %
+0.074 100.00   &lt;Total&gt;
+0.074 100.00   mxv_core
+0.      0.     collector_root
+0.      0.     driver_mxv
+</pre></div>
+
+<p>This shows that thread 7 spent <code>0.194</code> seconds on CPU 0 and 
+<code>0.074</code> seconds on CPU 15.
+</p>
+<hr>
+<span id="Viewing-Multiple-Experiments"></span><div class="header">
+<p>
+Next: <a href="#Profile-Hardware-Event-Counters" accesskey="n" rel="next">Profile Hardware Event Counters</a>, Previous: <a href="#Support-for-Multithreading" accesskey="p" rel="prev">Support for Multithreading</a>, Up: <a href="#A-Mini-Tutorial" accesskey="u" rel="up">A Mini Tutorial</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Viewing-Multiple-Experiments-1"></span><h3 class="section">3.3 Viewing Multiple Experiments</h3>
+
+<p>One thing we did not cover sofar is that <code>gprofng</code> fully supports the analysis
+of multiple experiments. The <code>gprofng display text</code> tool accepts a list of experiments.
+The data can either be aggregated across the experiments, or used in a 
+comparison.
+</p>
+<p>Mention <code>experiment_list</code>
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Aggregation-of-Experiments" accesskey="1">Aggregation of Experiments</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Comparison-of-Experiments" accesskey="2">Comparison of Experiments</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<span id="Aggregation-of-Experiments"></span><div class="header">
+<p>
+Next: <a href="#Comparison-of-Experiments" accesskey="n" rel="next">Comparison of Experiments</a>, Up: <a href="#Viewing-Multiple-Experiments" accesskey="u" rel="up">Viewing Multiple Experiments</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Aggregation-of-Experiments-1"></span><h4 class="subsection">3.3.1 Aggregation of Experiments</h4>
+
+<p>By default, the data for multiple experiments is aggregrated and the display 
+commands shows these combined results.
+</p>
+<p>For example, we can aggregate the data for our single and dual thread
+experiments. Below is the script we used for this:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example"># Define the metrics
+metrics e.%totalcpu
+# Limit the output to 10 lines
+limit 10
+# Get the list with experiments
+experiment_list
+# Get the function overview
+functions
+</pre></div>
+</td></tr></table>
+
+<span id="index-Commands_002c-experiment_005flist"></span>
+<p>With the exception of the <code>experiment_list</code> command, all commands
+used have been discussed earlier.
+</p>
+<p>The <code>experiment_list</code> command provides a list of the experiments
+that have been loaded. This is is used to verify we are looking at the
+experiments we intend to aggregate.
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -script my-script-agg mxv.1.thr.er mxv.2.thr.er
+</pre></div>
+</td></tr></table>
+
+<p>With the command above, we get the following output:
+</p>
+<div class="example">
+<pre class="verbatim"># Define the metrics
+Current metrics: e.%totalcpu:name
+Current Sort Metric: Exclusive Total CPU Time ( e.%totalcpu )
+# Limit the output to 10 lines
+Print limit set to 10
+# Get the list with experiments
+ID Sel   PID Experiment
+== === ===== ============
+ 1 yes 30591 mxv.1.thr.er
+ 2 yes 11629 mxv.2.thr.er
+# Get the function overview
+Functions sorted by metric: Exclusive Total CPU Time
+
+Excl. Total    Name
+CPU
+ sec.      %
+4.533 100.00   &lt;Total&gt;
+4.306  94.99   mxv_core
+0.105   2.31   init_data
+0.053   1.17   erand48_r
+0.027   0.59   __drand48_iterate
+0.021   0.46   _int_malloc
+0.021   0.46   drand48
+0.001   0.02   sysmalloc
+0.      0.     __libc_start_main
+0.      0.     allocate_data
+</pre></div>
+
+<p>The first five lines should look familiar. The five lines following, echo
+the comment line in the script and show the overview of the experiments.
+This confirms two experiments have been loaded and that both are active.
+</p>
+<p>This is followed by the function overview. The timings have been summed
+up and the percentages are adjusted accordingly. For example, the total
+accumulated time is indeed 2.272 + 2.261 = 4.533 seconds.
+</p>
+<hr>
+<span id="Comparison-of-Experiments"></span><div class="header">
+<p>
+Previous: <a href="#Aggregation-of-Experiments" accesskey="p" rel="prev">Aggregation of Experiments</a>, Up: <a href="#Viewing-Multiple-Experiments" accesskey="u" rel="up">Viewing Multiple Experiments</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Comparison-of-Experiments-1"></span><h4 class="subsection">3.3.2 Comparison of Experiments</h4>
+
+<p>The support for multiple experiments really shines in comparison mode. This
+feature is enabled through the command 
+<span id="index-Commands_002c-compare-on_002foff"></span>
+<code>compare on</code> 
+and is disabled
+by setting 
+<code>compare off</code>.
+</p>
+<span id="index-Compare-experiments"></span>
+<p>In comparison mode, the data for the various experiments is shown side by
+side, as illustrated below where we compare the results for the multithreaded
+experiments using one and two threads respectively:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -compare on -functions mxv.1.thr.er mxv.2.thr.er
+</pre></div>
+</td></tr></table>
+
+<p>This produces the following output:
+</p>
+<div class="example">
+<pre class="verbatim">Functions sorted by metric: Exclusive Total CPU Time
+
+mxv.1.thr.er  mxv.2.thr.er  mxv.1.thr.er  mxv.2.thr.er
+Excl. Total   Excl. Total   Incl. Total   Incl. Total    Name
+CPU           CPU           CPU           CPU
+ sec.          sec.          sec.          sec.
+2.272         2.261         2.272         2.261          &lt;Total&gt;
+2.159         2.148         2.159         2.148          mxv_core
+0.054         0.051         0.102         0.104          init_data
+0.025         0.028         0.035         0.045          erand48_r
+0.013         0.008         0.048         0.053          drand48
+0.011         0.010         0.012         0.010          _int_malloc
+0.010         0.017         0.010         0.017          __drand48_iterate
+0.001         0.            0.001         0.             sysmalloc
+0.            0.            0.114         0.114          __libc_start_main
+0.            0.            0.011         0.010          allocate_data
+0.            0.            0.001         0.             check_results
+0.            0.            2.159         2.148          collector_root
+0.            0.            2.159         2.148          driver_mxv
+0.            0.            0.114         0.114          main
+0.            0.            0.012         0.010          malloc
+</pre></div>
+
+<p>This table is already helpful to more easily compare (two) profiles, but 
+there is more that we can do here. 
+</p>
+<p>By default, in comparison mode, all measured values are shown. Often 
+profiling is about comparing performance data. It is therefore
+more useful to look at differences, or ratios, using one experiment as 
+a reference. 
+</p>
+<p>The values shown are relative to this difference. For example if a ratio
+is below one, it means the reference value was higher. 
+</p>
+<span id="index-Commands_002c-compare-on_002foff-1"></span>
+<p>This feature is supported on the <code>compare</code> command. In addition to <code>on</code>,
+or <code>off</code>, this command also supports 
+<span id="index-Commands_002c-compare-delta"></span>
+<code>delta</code>, or 
+<span id="index-Commands_002c-compare-ratio"></span>
+<code>ratio</code>.
+</p>
+<p>Usage of one of these two keywords enables the comparison feature and shows
+either the difference, or the ratio, relative to the reference data.
+</p>
+<p>In the example below, we use the same two experiments used in the comparison
+above, but as before, the number of lines is restricted to 10 and we focus on 
+the exclusive timings plus percentages. For the comparison part we are 
+interested in the differences.
+</p>
+<p>This is the script that produces such an overview:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example"># Define the metrics
+metrics e.%totalcpu
+# Limit the output to 10 lines
+limit 10
+# Set the comparison mode to differences
+compare delta
+# Get the function overview
+functions
+</pre></div>
+</td></tr></table>
+
+<p>Assuming this script file is called <code>my-script-comp</code>, this is how we
+get the table displayed on our screen:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -script my-script-comp mxv.1.thr.er mxv.2.thr.er
+</pre></div>
+</td></tr></table>
+
+<p>Leaving out some of the lines printed, but we have seen before, we get 
+the following table:
+</p>
+<div class="example">
+<pre class="verbatim">mxv.1.thr.er  mxv.2.thr.er
+Excl. Total   Excl. Total     Name
+CPU           CPU
+ sec.      %   delta      %
+2.272 100.00  -0.011 100.00   &lt;Total&gt;
+2.159  95.00  -0.011  94.97   mxv_core
+0.054   2.37  -0.003   2.25   init_data
+0.025   1.10  +0.003   1.23   erand48_r
+0.013   0.57  -0.005   0.35   drand48
+0.011   0.48  -0.001   0.44   _int_malloc
+0.010   0.44  +0.007   0.75   __drand48_iterate
+0.001   0.04  -0.001   0.     sysmalloc
+0.      0.    +0.      0.     __libc_start_main
+0.      0.    +0.      0.     allocate_data
+</pre></div>
+
+<p>It is now easy to see that the CPU times for the most time consuming
+functions in this code are practically the same. 
+</p>
+<p>While in this case we used the delta as a comparison,
+</p>
+<p>Note that the comparison feature is supported at the function, source, and 
+disassembly level. There is no practical limit on the number of experiments
+that can be used in a comparison.
+</p>
+
+
+<hr>
+<span id="Profile-Hardware-Event-Counters"></span><div class="header">
+<p>
+Next: <a href="#Java-Profiling" accesskey="n" rel="next">Java Profiling</a>, Previous: <a href="#Viewing-Multiple-Experiments" accesskey="p" rel="prev">Viewing Multiple Experiments</a>, Up: <a href="#A-Mini-Tutorial" accesskey="u" rel="up">A Mini Tutorial</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Profile-Hardware-Event-Counters-1"></span><h3 class="section">3.4 Profile Hardware Event Counters</h3>
+
+<p>Many processors provide a set of hardware event counters and <code>gprofng</code>
+provides support for this feature.
+See <a href="#Hardware-Event-Counters-Explained">Hardware Event Counters Explained</a> for those readers that are not 
+familiar with such counters and like to learn more.
+</p>
+<p>In this section we explain how to get the details on the event counter
+support for the processor used in the experiment(s), and show several
+examples.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Getting-Information-on-the-Counters-Supported" accesskey="1">Getting Information on the Counters Supported</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Examples-Using-Hardware-Event-Counters" accesskey="2">Examples Using Hardware Event Counters</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<span id="Getting-Information-on-the-Counters-Supported"></span><div class="header">
+<p>
+Next: <a href="#Examples-Using-Hardware-Event-Counters" accesskey="n" rel="next">Examples Using Hardware Event Counters</a>, Up: <a href="#Profile-Hardware-Event-Counters" accesskey="u" rel="up">Profile Hardware Event Counters</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Getting-Information-on-the-Counters-Supported-1"></span><h4 class="subsection">3.4.1 Getting Information on the Counters Supported</h4>
+
+<p>The first step is to check if the processor used for the experiments is 
+supported by <code>gprofng</code>.
+</p>
+<span id="index-Options_002c-_002dh"></span>
+<p>The <code>-h</code> option on <code>gprofng collect app</code> will show the event counter
+information:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng collect app -h
+</pre></div>
+</td></tr></table>
+
+<p>In case the counters are supported, a list with the events is printed. 
+Otherwise, a warning message will be issued. 
+</p>
+<p>For example, below we show this command and the output on an Intel Xeon 
+Platinum 8167M (aka &ldquo;Skylake&rdquo;) processor. The output has been split
+into several sections and each section is commented upon separately.
+</p>
+<div class="example">
+<pre class="verbatim">Run &quot;gprofng collect app --help&quot; for a usage message.
+
+Specifying HW counters on `Intel Arch PerfMon v2 on Family 6 Model 85' 
+(cpuver=2499):
+
+  -h {auto|lo|on|hi}
+	turn on default set of HW counters at the specified rate
+  -h &lt;ctr_def&gt; [-h &lt;ctr_def&gt;]...
+  -h &lt;ctr_def&gt;[,&lt;ctr_def&gt;]...
+	specify HW counter profiling for up to 4 HW counters
+</pre></div>
+
+<p>The first line shows how to get a usage overview. This is followed by
+some information on the target processor.
+</p>
+<p>The next five lines explain in what ways the <code>-h</code> option can be 
+used to define the events to be monitored.
+</p>
+<p>The first version shown above enables a default set of counters. This
+default depends on the processor this command is executed on. The
+keyword following the <code>-h</code> option defines the sampling rate:
+</p>
+<dl compact="compact">
+<dt><code>auto</code></dt>
+<dd><p>Match the sample rate of used by clock profiling. If the latter is disabled,
+Use a per thread sampling rate of approximately 100 samples per second.
+This setting is the default and preferred.
+</p>
+</dd>
+<dt><code>on</code></dt>
+<dd><p>Use a per thread sampling rate of approximately 100 samples per second.
+</p>
+</dd>
+<dt><code>lo</code></dt>
+<dd><p>Use a per thread sampling rate of approximately 10 samples per second.
+</p>
+</dd>
+<dt><code>hi</code></dt>
+<dd><p>Use a per thread sampling rate of approximately 1000 samples per second.
+</p>
+</dd>
+</dl>
+
+<p>The second and third variant define the events to be monitored. Note
+that the number of simultaneous events supported is printed. In this
+case we can monitor four events in a single profiling job.
+</p>
+<p>It is a matter of preference whether you like to use the <code>-h</code>
+option for each event, or use it once, followed by a comma separated
+list.
+</p>
+<p>There is one slight catch though. The counter definition below has 
+mandatory comma (<code>,</code>) between the event and the rate. While a 
+default can be used for the rate, the comma cannot be omitted. 
+This may result in a somewhat awkward counter definition in case
+the default sampling rate is used.
+</p>
+<p>For example, the following two commands are equivalent. Note
+the double comma in the second command. This is not a typo.
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng collect app -h cycles -h insts ... 
+$ gprofng collect app -h cycles,,insts ... 
+</pre></div>
+</td></tr></table>
+
+<p>In the first command this comma is not needed, because a 
+comma (&ldquo;<code>,</code>&rdquo;) immediately followed by white space may 
+be omitted.
+</p>
+<p>This is why we prefer the this syntax and in the remainder will 
+use the first version of this command.
+</p>
+<span id="index-Hardware-event-counters_002c-counter-definition"></span>
+<p>The counter definition takes an event name, plus optionally one or
+more attributes, followed by a comma, and optionally the sampling rate.
+The output section below shows the formal definition.
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">  &lt;ctr_def&gt; == &lt;ctr&gt;[[~&lt;attr&gt;=&lt;val&gt;]...],[&lt;rate&gt;]
+</pre></div>
+</td></tr></table>
+
+<p>The printed help then explains this syntax. Below we have summarized
+and expanded this output:
+</p>
+<dl compact="compact">
+<dt><code>&lt;ctr&gt;</code></dt>
+<dd><p>The counter name must be selected from the available counters listed
+as part of the output printed with the <code>-h</code> option.
+On most systems, if a counter is not listed, it may still be specified 
+by its numeric value.
+</p>
+</dd>
+<dt><code>~&lt;attr&gt;=&lt;val&gt;</code></dt>
+<dd><p>This is an optional attribute that depends on the processor. The list
+of supported attributes is printed in the output. Examples of 
+attributes are &ldquo;user&rdquo;, or &ldquo;system&rdquo;. The value can given in decimal
+or hexadecimal format.
+Multiple attributes may be specified, and each must be preceded 
+by a ~.
+</p>
+</dd>
+<dt><code>&lt;rate&gt;</code></dt>
+<dd>
+<p>The sampling rate is one of the following:
+</p>
+<dl compact="compact">
+<dt><code>auto</code></dt>
+<dd><p>This is the default and matches the rate used by clock profiling.
+If clock profiling is disabled, use <code>on</code>.
+</p>
+</dd>
+<dt><code>on</code></dt>
+<dd><p>Set the per thread maximum sampling rate to ~100 samples/second
+</p>
+</dd>
+<dt><code>lo</code></dt>
+<dd><p>Set the per thread maximum sampling rate to ~10 samples/second
+</p>
+</dd>
+<dt><code>hi</code></dt>
+<dd><p>Set the per thread maximum sampling rate to ~1000 samples/second
+</p>
+</dd>
+<dt><code>&lt;interval&gt;</code></dt>
+<dd><p>Define the sampling interval. 
+See <a href="#Control-the-Sampling-Frequency">Control the Sampling Frequency</a> how to define this.
+</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+<p>After the section with the formal definition of events and counters, a
+processor specific list is displayed. This part starts with an overview
+of the default set of counters and the aliased names supported 
+<em>on this specific processor</em>.
+</p>
+<div class="example">
+<pre class="verbatim">Default set of HW counters:
+
+    -h cycles,,insts,,llm
+
+Aliases for most useful HW counters:
+
+ alias    raw name                   type units regs description
+
+ cycles   unhalted-core-cycles   CPU-cycles 0123 CPU Cycles
+ insts    instruction-retired        events 0123 Instructions Executed
+ llm      llc-misses                 events 0123 Last-Level Cache Misses
+ br_msp   branch-misses-retired      events 0123 Branch Mispredict
+ br_ins   branch-instruction-retired events 0123 Branch Instructions
+</pre></div>
+
+<p>The definitions given above may or may not be available on other processors,
+but we try to maximize the overlap across alias sets.
+</p>
+<p>The table above shows the default set of counters defined for this processor,
+and the aliases. For each alias the full &ldquo;raw&rdquo; name is given, plus the
+unit of the number returned by the counter (CPU cycles, or a raw count), 
+the hardware counter the event is allowed to be mapped onto, and a short 
+description.
+</p>
+<p>The last part of the output contains all the events that can be monitored:
+</p>
+<div class="example">
+<pre class="verbatim">Raw HW counters:
+
+    name                                type      units regs description
+
+    unhalted-core-cycles                     CPU-cycles 0123
+    unhalted-reference-cycles                    events 0123
+    instruction-retired                          events 0123
+    llc-reference                                events 0123
+    llc-misses                                   events 0123
+    branch-instruction-retired                   events 0123
+    branch-misses-retired                        events 0123
+    ld_blocks.store_forward                      events 0123
+    ld_blocks.no_sr                              events 0123
+    ld_blocks_partial.address_alias              events 0123
+    dtlb_load_misses.miss_causes_a_walk          events 0123
+    dtlb_load_misses.walk_completed_4k           events 0123
+
+    &lt;many lines deleted&gt;
+
+    l2_lines_out.silent                          events 0123
+    l2_lines_out.non_silent                      events 0123
+    l2_lines_out.useless_hwpf                    events 0123
+    sq_misc.split_lock                           events 0123
+
+See Chapter 19 of the &quot;Intel 64 and IA-32 Architectures Software
+Developer's Manual Volume 3B: System Programming Guide&quot;
+</pre></div>
+
+<p>As can be seen, these names are not always easy to correlate to a specific
+event of interest. The processor manual should provide more clarity on this.
+</p>
+<hr>
+<span id="Examples-Using-Hardware-Event-Counters"></span><div class="header">
+<p>
+Previous: <a href="#Getting-Information-on-the-Counters-Supported" accesskey="p" rel="prev">Getting Information on the Counters Supported</a>, Up: <a href="#Profile-Hardware-Event-Counters" accesskey="u" rel="up">Profile Hardware Event Counters</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Examples-Using-Hardware-Event-Counters-1"></span><h4 class="subsection">3.4.2 Examples Using Hardware Event Counters</h4>
+
+<p>The previous section may give the impression that these counters are hard to
+use, but as we will show now, in practice it is quite simple.
+</p>
+<p>With the information from the <code>-h</code> option, we can easily set up our first 
+event counter experiment.
+</p>
+<p>We start by using the default set of counters defined for our processor and we
+use 2 threads:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ exe=mxv-pthreads.exe
+$ m=3000
+$ n=2000
+$ exp=mxv.hwc.def.2.thr.er
+$ gprofng collect app -O $exp -h auto ./$exe -m $m -n $n -t 2
+</pre></div>
+</td></tr></table>
+
+<span id="index-Options_002c-_002dh-1"></span>
+<span id="index-Hardware-event-counters_002c-auto-option"></span>
+<p>The new option here is <code>-h auto</code>. The <code>auto</code> keyword enables 
+hardware event counter profiling and selects the default set of counters 
+defined for this processor.
+</p>
+<p>As before, we can display the information, but there is one practical hurdle
+to take. Unless we like to view all metrics recorded, we would need to know
+the names of the events that have been enabled. This is tedious and also not
+portable in case we would like to repeat this experiment on another processor.
+</p>
+<span id="index-Hardware-event-counters_002c-hwc-metric"></span>
+<p>This is where the special <code>hwc</code> metric comes very handy. It 
+automatically expands to the active set of events used.
+</p>
+<p>With this, it is very easy to display the event counter values. Note that
+although the regular clock based profiling was enabled, we only want to see 
+the counter values. We also request to see the percentages and limit the
+output to the first 5 lines:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ exp=mxv.hwc.def.2.thr.er
+$ gprofng display text -metrics e.%hwc -limit 5 -functions $exp
+</pre></div>
+</td></tr></table>
+
+<div class="example">
+<pre class="verbatim">Current metrics: e.%cycles:e+%insts:e+%llm:name
+Current Sort Metric: Exclusive CPU Cycles ( e.%cycles )
+Print limit set to 5
+Functions sorted by metric: Exclusive CPU Cycles
+
+Excl. CPU     Excl. Instructions  Excl. Last-Level   Name
+Cycles        Executed            Cache Misses
+ sec.      %                  %                 %
+2.691 100.00  7906475309 100.00   122658983 100.00   &lt;Total&gt;
+2.598  96.54  7432724378  94.01   121745696  99.26   mxv_core
+0.035   1.31   188860269   2.39       70084   0.06   erand48_r
+0.026   0.95    73623396   0.93      763116   0.62   init_data
+0.018   0.66    76824434   0.97       40040   0.03   drand48
+</pre></div>
+
+<p>As we have seen before, the first few lines echo the settings.
+This includes a list with the hardware event counters used by
+default.
+</p>
+<p>The table that follows makes it very easy to get an overview where the 
+time is spent and how many of the target events have occurred.
+</p>
+<p>As before, we can drill down deeper and see the same metrics at the source
+line and instruction level. Other than using <code>hwc</code> in the metrics
+definitions, nothing has changed compared to the previous examples:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ exp=mxv.hwc.def.2.thr.er
+$ gprofng display text -metrics e.hwc -source mxv_core $exp
+</pre></div>
+</td></tr></table>
+
+<p>This is the relevant part of the output. Since the lines get very long,
+we have somewhat modified the lay-out:
+</p>
+<div class="example">
+<pre class="verbatim">   Excl. CPU Excl.        Excl.
+   Cycles    Instructions Last-Level
+    sec.     Executed     Cache Misses
+                                         &lt;Function: mxv_core&gt;
+   0.                 0          0   32. void __attribute__ ((noinline)) 
+                                         mxv_core(...)
+   0.                 0          0   33. {
+   0.                 0          0   34.   for (uint64_t i=...) {
+   0.                 0          0   35.     double row_sum = 0.0;
+## 1.872     7291879319   88150571   36.     for (int64_t j=0; j&lt;n; j++)
+   0.725      140845059   33595125   37.        row_sum += A[i][j]*b[j];
+   0.                 0          0   38.     c[i] = row_sum;
+                                     39.    }
+   0.                 0          0   40. }
+</pre></div>
+
+<p>In a smiliar way we can display the event counter values at the instruction
+level. Again we have modified the lay-out due to page width limitations:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ exp=mxv.hwc.def.2.thr.er
+$ gprofng display text -metrics e.hwc -disasm mxv_core $exp
+</pre></div>
+</td></tr></table>
+
+<div class="example">
+<pre class="verbatim">   Excl. CPU Excl.        Excl.
+   Cycles    Instructions Last-Level
+    sec.     Executed     Cache Misses
+                                                &lt;Function: mxv_core&gt;
+   0.                 0          0  [33] 4021ba: mov   0x8(%rsp),%r10
+                                    34.   for (uint64_t i=...) {
+   0.                 0          0  [34] 4021bf: cmp   %rsi,%rdi
+   0.                 0          0  [34] 4021c2: jbe   0x37
+   0.                 0          0  [34] 4021c4: ret
+                                    35.       double row_sum = 0.0;
+                                    36.       for (int64_t j=0; j&lt;n; j++)
+                                    37.         row_sum += A[i][j]*b[j];
+   0.                 0          0  [37] 4021c5: mov   (%r8,%rdi,8),%rdx
+   0.                 0          0  [36] 4021c9: mov   $0x0,%eax
+   0.                 0          0  [35] 4021ce: pxor  %xmm1,%xmm1
+   0.002       12804230     321394  [37] 4021d2: movsd (%rdx,%rax,8),%xmm0
+   0.141       60819025    3866677  [37] 4021d7: mulsd (%r9,%rax,8),%xmm0
+   0.582       67221804   29407054  [37] 4021dd: addsd %xmm0,%xmm1
+## 1.871     7279075109   87989870  [36] 4021e1: add   $0x1,%rax
+   0.002       12804210      80351  [36] 4021e5: cmp   %rax,%rcx
+   0.                 0          0  [36] 4021e8: jne   0xffffffffffffffea
+                                    38.       c[i] = row_sum;
+   0.                 0          0  [38] 4021ea: movsd %xmm1,(%r10,%rdi,8)
+   0.                 0          0  [34] 4021f0: add   $0x1,%rdi
+   0.                 0          0  [34] 4021f4: cmp   %rdi,%rsi
+   0.                 0          0  [34] 4021f7: jb    0xd
+   0.                 0          0  [35] 4021f9: pxor  %xmm1,%xmm1
+   0.                 0          0  [36] 4021fd: test  %rcx,%rcx
+   0.                 0      80350  [36] 402200: jne   0xffffffffffffffc5
+   0.                 0          0  [36] 402202: jmp   0xffffffffffffffe8
+                                    39.   }
+                                    40. }
+   0.                 0          0  [40]  402204:  ret
+</pre></div>
+
+<p>So far we have used the default settings for the event counters. It is
+quite straightforward to select specific counters. For sake of the
+example, let&rsquo;s assume we would like to count how many branch instructions
+and retired memory load instructions that missed in the L1 cache have been
+executed. We also want to count these events with a high resolution.
+</p>
+<p>This is the command to do so:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ exe=mxv-pthreads.exe
+$ m=3000
+$ n=2000
+$ exp=mxv.hwc.sel.2.thr.er
+$ hwc1=br_ins,hi
+$ hwc2=mem_load_retired.l1_miss,hi
+$ gprofng collect app -O $exp -h $hwc1 -h $hwc2 $exe -m $m -n $n -t 2
+</pre></div>
+</td></tr></table>
+
+<p>As before, we get a table with the event counts. Due to the very
+long name for the second counter, we have somewhat modified the
+output.
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -limit 10 -functions mxv.hwc.sel.2.thr.er
+</pre></div>
+</td></tr></table>
+
+<div class="example">
+<pre class="verbatim">Functions sorted by metric: Exclusive Total CPU Time
+Excl.     Incl.     Excl. Branch  Excl.                 Name
+Total     Total     Instructions  mem_load_retired.l1_miss
+CPU sec.  CPU sec.                Events
+2.597     2.597     1305305319    4021340               &lt;Total&gt;
+2.481     2.481     1233233242    3982327               mxv_core
+0.040     0.107       19019012       9003               init_data
+0.028     0.052       23023048      15006               erand48_r
+0.024     0.024       19019008       9004               __drand48_iterate
+0.015     0.067       11011009       2998               drand48
+0.008     0.010              0       3002               _int_malloc
+0.001     0.001              0          0               brk
+0.001     0.002              0          0               sysmalloc
+0.        0.001              0          0               __default_morecore
+</pre></div>
+
+<span id="index-Commands_002c-compare-ratio-1"></span>
+<p>When using event counters, the values could be very large and it is not easy
+to compare the numbers. As we will show next, the <code>ratio</code> feature is
+very useful when comparing such profiles.
+</p>
+<p>To demonstrate this, we have set up another event counter experiment where
+we would like to compare the number of last level cache miss and the number
+of branch instructions executed when using a single thread, or two threads.
+</p>
+<p>These are the commands used to generate the experiment directories:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ exe=./mxv-pthreads.exe
+$ m=3000
+$ n=2000
+$ exp1=mxv.hwc.comp.1.thr.er
+$ exp2=mxv.hwc.comp.2.thr.er
+$ gprofng collect app -O $exp1 -h llm -h br_ins $exe -m $m -n $n -t 1
+$ gprofng collect app -O $exp2 -h llm -h br_ins $exe -m $m -n $n -t 2
+</pre></div>
+</td></tr></table>
+
+<p>The following script has been used to get the tables. Due to lay-out
+restrictions, we have to create two tables, one for each counter.
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example"># Limit the output to 5 lines
+limit 5
+# Define the metrics
+metrics name:e.llm
+# Set the comparison to ratio
+compare ratio
+functions
+# Define the metrics
+metrics name:e.br_ins
+# Set the comparison to ratio
+compare ratio
+functions
+</pre></div>
+</td></tr></table>
+
+<p>Note that we print the name of the function first, followed by the counter 
+data.
+The new element is that we set the comparison mode to <code>ratio</code>. This
+divides the data in a column by its counterpart in the reference experiment.
+</p>
+<p>This is the command using this script and the two experiment directories as 
+input:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -script my-script-comp-counters \
+  mxv.hwc.comp.1.thr.er \
+  mxv.hwc.comp.2.thr.er
+</pre></div>
+</td></tr></table>
+
+<p>By design, we get two tables, one for each counter:
+</p>
+<div class="example">
+<pre class="verbatim">Functions sorted by metric: Exclusive Last-Level Cache Misses
+
+                              mxv.hwc.comp.1.thr.er  mxv.hwc.comp.2.thr.er
+Name                          Excl. Last-Level       Excl. Last-Level
+                              Cache Misses           Cache Misses
+                                                         ratio
+ &lt;Total&gt;                      122709276              x   0.788
+ mxv_core                     121796001              x   0.787
+ init_data                       723064              x   1.055
+ erand48_r                       100111              x   0.500
+ drand48                          60065              x   1.167
+
+Functions sorted by metric: Exclusive Branch Instructions
+
+                              mxv.hwc.comp.1.thr.er  mxv.hwc.comp.2.thr.er
+Name                          Excl. Branch           Excl. Branch
+                              Instructions           Instructions
+                                                       ratio
+ &lt;Total&gt;                      1307307316             x 0.997
+ mxv_core                     1235235239             x 0.997
+ erand48_r                      23023033             x 0.957
+ drand48                        20020009             x 0.600
+ __drand48_iterate              17017028             x 0.882
+</pre></div>
+
+<p>A ratio less than one in the second column, means that this counter
+value was smaller than the value from the reference experiment shown
+in the first column.
+</p>
+<p>This kind of presentation of the results makes it much easier to 
+quickly interpret the data.
+</p>
+<p>We conclude this section with thread-level event counter overviews,
+but before we go into this, there is an important metric we need to
+mention.
+</p>
+<span id="index-Hardware-event-counters_002c-IPC"></span>
+<p>In case it is known how many instructions and CPU cycles have been executed,
+the value for the IPC (&ldquo;Instructions Per Clockycle&rdquo;) can be computed. 
+See <a href="#Hardware-Event-Counters-Explained">Hardware Event Counters Explained</a>.
+This is a derived metric that gives an indication how well the processor
+is utilized. The inverse of the IPC is called CPI.
+</p>
+<p>The <code>gprofng display text</code> command automatically computes the IPC and CPI values
+if an experiment contains the event counter values for the instructions
+and CPU cycles executed. These are part of the metric list and can be
+displayed, just like any other metric.
+</p>
+<span id="index-Commands_002c-metric_005flist-2"></span>
+<p>This can be verified through the <code>metric_list</code> command. If we go
+back to our earlier experiment with the default event counters, we get
+the following result.
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -metric_list mxv.hwc.def.2.thr.er
+</pre></div>
+</td></tr></table>
+
+<div class="example">
+<pre class="verbatim">Current metrics: e.totalcpu:i.totalcpu:e.cycles:e+insts:e+llm:name
+Current Sort Metric: Exclusive Total CPU Time ( e.totalcpu )
+Available metrics:
+         Exclusive Total CPU Time: e.%totalcpu
+         Inclusive Total CPU Time: i.%totalcpu
+             Exclusive CPU Cycles: e.+%cycles
+             Inclusive CPU Cycles: i.+%cycles
+  Exclusive Instructions Executed: e+%insts
+  Inclusive Instructions Executed: i+%insts
+Exclusive Last-Level Cache Misses: e+%llm
+Inclusive Last-Level Cache Misses: i+%llm
+ Exclusive Instructions Per Cycle: e+IPC
+ Inclusive Instructions Per Cycle: i+IPC
+ Exclusive Cycles Per Instruction: e+CPI
+ Inclusive Cycles Per Instruction: i+CPI
+                             Size: size
+                       PC Address: address
+                             Name: name
+</pre></div>
+
+<p>Among the other metrics, we see the new metrics for the IPC and CPI 
+listed.
+</p>
+<p>In the script below, we use this information and add the IPC and CPI 
+to the metrics to be displayed. We also use a the thread filter to 
+display these values for the individual threads.
+</p>
+<p>This is the complete script we have used. Other than a different selection
+of the metrics, there are no new features.
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example"># Define the metrics
+metrics e.insts:e.%cycles:e.IPC:e.CPI
+# Sort with respect to cycles
+sort e.cycles
+# Limit the output to 5 lines
+limit 5
+# Get the function overview for all threads
+functions
+# Get the function overview for thread 1
+thread_select 1
+functions
+# Get the function overview for thread 2
+thread_select 2
+functions
+# Get the function overview for thread 3
+thread_select 3
+functions
+</pre></div>
+</td></tr></table>
+
+<p>In the metrics definition on the second line, we explicitly request the 
+counter values for the instructions (<code>e.insts</code>) and CPU cycles 
+(<code>e.cycles</code>) executed. These names can be found in output from the
+<code>metric_list</code> commad above.
+In addition to these metrics, we also request the IPC and CPI to be shown.
+</p>
+<p>As before, we used the <code>limit</code> command to control the number of 
+functions displayed. We then request an overview for all the threads,
+followed by three sets of two commands to select a thread and display the 
+function overview.
+</p>
+<p>The script above is used as follows:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -script my-script-ipc mxv.hwc.def.2.thr.er
+</pre></div>
+</td></tr></table>
+
+<p>This script produces four tables. We list them separately below,
+and have left out the additional output.
+</p>
+<p>The first table shows the accumulated values across the three
+threads that have been active.
+</p>
+<div class="example">
+<pre class="verbatim">Functions sorted by metric: Exclusive CPU Cycles
+
+Excl.         Excl. CPU     Excl.  Excl.   Name
+Instructions  Cycles        IPC    CPI
+Executed       sec.      %
+7906475309    2.691 100.00  1.473  0.679   &lt;Total&gt;
+7432724378    2.598  96.54  1.434  0.697   mxv_core
+ 188860269    0.035   1.31  2.682  0.373   erand48_r
+  73623396    0.026   0.95  1.438  0.696   init_data
+  76824434    0.018   0.66  2.182  0.458   drand48
+</pre></div>
+
+<p>This shows that IPC of this program is completely dominated
+by function <code>mxv_core</code>. It has a fairly low IPC value
+of 1.43.
+</p>
+<p>The next table is for thread 1 and shows the values for the 
+main thread.
+</p>
+<div class="example">
+<pre class="verbatim">Exp Sel Total
+=== === =====
+  1 1       3
+Functions sorted by metric: Exclusive CPU Cycles
+
+Excl.         Excl. CPU     Excl.  Excl.   Name
+Instructions  Cycles        IPC    CPI
+Executed       sec.      %
+473750931     0.093 100.00  2.552  0.392   &lt;Total&gt;
+188860269     0.035  37.93  2.682  0.373   erand48_r
+ 73623396     0.026  27.59  1.438  0.696   init_data
+ 76824434     0.018  18.97  2.182  0.458   drand48
+134442832     0.013  13.79  5.250  0.190   __drand48_iterate
+</pre></div>
+
+<p>Although this thread hardly uses any CPU cycles, the overall IPC 
+of 2.55 is not all that bad.
+</p>
+<p>Last, we show the tables for threads 2 and 3:
+</p>
+<div class="example">
+<pre class="verbatim">Exp Sel Total
+=== === =====
+  1 2       3
+Functions sorted by metric: Exclusive CPU Cycles
+
+Excl.         Excl. CPU     Excl.  Excl.   Name
+Instructions  Cycles        IPC    CPI
+Executed       sec.      %
+3716362189    1.298 100.00  1.435  0.697   &lt;Total&gt;
+3716362189    1.298 100.00  1.435  0.697   mxv_core
+         0    0.      0.    0.     0.      collector_root
+         0    0.      0.    0.     0.      driver_mxv
+
+Exp Sel Total
+=== === =====
+  1 3       3
+Functions sorted by metric: Exclusive CPU Cycles
+
+Excl.         Excl. CPU     Excl.  Excl.   Name
+Instructions  Cycles        IPC    CPI
+Executed       sec.      %
+3716362189    1.300 100.00  1.433  0.698   &lt;Total&gt;
+3716362189    1.300 100.00  1.433  0.698   mxv_core
+         0    0.      0.    0.     0.      collector_root
+         0    0.      0.    0.     0.      driver_mxv
+</pre></div>
+
+<p>It is seen that both execute the same number of instructions and
+take about the same number of CPU cycles. As a result, the IPC is
+the same for both threads.
+</p>
+
+
+
+<hr>
+<span id="Java-Profiling"></span><div class="header">
+<p>
+Previous: <a href="#Profile-Hardware-Event-Counters" accesskey="p" rel="prev">Profile Hardware Event Counters</a>, Up: <a href="#A-Mini-Tutorial" accesskey="u" rel="up">A Mini Tutorial</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Java-Profiling-1"></span><h3 class="section">3.5 Java Profiling</h3>
+
+<span id="index-Java-profiling_002c-_002dj-on_002foff"></span>
+<p>The <code>gprofng collect app</code> command supports Java profiling. The <code>-j on</code> option
+can be used for this, but since this feature is enabled by default, there is 
+no need to set this explicitly. Java profiling may be disabled through the 
+<code>-j off</code> option.
+</p>
+<p>The program is compiled as usual and the experiment directory is created 
+similar to what we have seen before. The only difference with a C/C++
+application is that the program has to be explicitly executed by java.
+</p>
+<p>For example, this is how to generate the experiment data for a Java
+program that has the source code stored in file <code>Pi.java</code>:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ javac Pi.java
+$ gprofng collect app -j on -O pi.demo.er java Pi &lt; pi.in
+</pre></div>
+</td></tr></table>
+
+<p>Regarding which java is selected to generate the data, <code>gprofng</code> 
+first looks for the JDK in the path set in either the 
+<span id="index-Java-profiling_002c-JDK_005fHOME"></span>
+<code>JDK_HOME</code> environment variable, or in the
+<span id="index-Java-profiling_002c-JAVA_005fPATH"></span>
+<code>JAVA_PATH</code> environment variable. If neither of these variables is 
+set, it checks for a JDK in the search path (set in the PATH
+environment variable). If there is no JDK in this path, it checks for 
+the java executable in <code>/usr/java/bin/java</code>.
+</p>
+<p>In case additional options need to be passed on to the JVM, the 
+<span id="index-Java-profiling_002c-_002dJ-_003cstring_003e"></span>
+<code>-J &lt;string&gt;</code> option can be used. The string with the
+option(s) has to be delimited by quotation marks in case
+there is more than one argument.
+</p>
+<p>The <code>gprofng display text</code> command may be used to view the performance data. There is
+no need for any special options and the same commands as previously discussed
+are supported.
+</p>
+<span id="index-Commands_002c-viewmode"></span>
+<span id="index-Java-profiling_002c-different-view-modes"></span>
+<p>The <code>viewmode</code> command 
+See <a href="#The-Viewmode">The Viewmode</a>
+is very useful to examine the call stacks. 
+</p>
+<p>For example, this is how one can see the native call stacks. For
+lay-out purposes we have restricted the list to the first five entries:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<div class="example">
+<pre class="example">$ gprofng display text -limit 5 -viewmode machine -calltree pi.demo.er 
+</pre></div>
+</td></tr></table>
+
+<div class="example">
+<pre class="verbatim">Print limit set to 5
+Viewmode set to machine
+Functions Call Tree. Metric: Attributed Total CPU Time
+
+Attr.      Name
+Total
+CPU sec.
+1.381      +-&lt;Total&gt;
+1.171        +-Pi.calculatePi(double)
+0.110        +-collector_root
+0.110        |  +-JavaMain
+0.070        |    +-jni_CallStaticVoidMethod
+</pre></div>
+
+<p>Note that the selection of the viewmode is echoed in the output.
+</p>
+
+<hr>
+<span id="Terminology"></span><div class="header">
+<p>
+Next: <a href="#Other-Document-Formats" accesskey="n" rel="next">Other Document Formats</a>, Previous: <a href="#A-Mini-Tutorial" accesskey="p" rel="prev">A Mini Tutorial</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Terminology-1"></span><h2 class="chapter">4 Terminology</h2>
+
+<p>Throughout this manual, certain terminology specific to profiling tools, 
+or <code>gprofng</code>, or even to this document only, is used. In this chapter we 
+explain this terminology in detail.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#The-Program-Counter" accesskey="1">The Program Counter</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">What is a Program Counter?
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Inclusive-and-Exclusive-Metrics" accesskey="2">Inclusive and Exclusive Metrics</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">An explanation of inclusive and exclusive metrics.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Metric-Definitions" accesskey="3">Metric Definitions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Definitions associated with metrics.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#The-Viewmode" accesskey="4">The Viewmode</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Select the way call stacks are presented.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#The-Selection-List" accesskey="5">The Selection List</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How to define a selection.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Load-Objects-and-Functions" accesskey="6">Load Objects and Functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The components in an application.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#The-Concept-of-a-CPU-in-gprofng" accesskey="7">The Concept of a CPU in gprofng</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The definition of a CPU.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Hardware-Event-Counters-Explained" accesskey="8">Hardware Event Counters Explained</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">What are event counters?
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#apath" accesskey="9">apath</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Our generic definition of a path.
+</td></tr>
+</table>
+
+<hr>
+<span id="The-Program-Counter"></span><div class="header">
+<p>
+Next: <a href="#Inclusive-and-Exclusive-Metrics" accesskey="n" rel="next">Inclusive and Exclusive Metrics</a>, Up: <a href="#Terminology" accesskey="u" rel="up">Terminology</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="The-Program-Counter-1"></span><h3 class="section">4.1 The Program Counter</h3>
+
+<span id="index-PC"></span>
+<span id="index-Program-Counter"></span>
+<p>The <em>Program Counter</em>, or PC for short, keeps track where program execution is.
+The address of the next instruction to be executed is stored in a special
+purpose register in the processor, or core.
+</p>
+<span id="index-Instruction-pointer"></span>
+<p>The PC is sometimes also referred to as the <em>instruction pointer</em>, but
+we will use Program Counter or PC throughout this document.
+</p>
+<hr>
+<span id="Inclusive-and-Exclusive-Metrics"></span><div class="header">
+<p>
+Next: <a href="#Metric-Definitions" accesskey="n" rel="next">Metric Definitions</a>, Previous: <a href="#The-Program-Counter" accesskey="p" rel="prev">The Program Counter</a>, Up: <a href="#Terminology" accesskey="u" rel="up">Terminology</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Inclusive-and-Exclusive-Metrics-1"></span><h3 class="section">4.2 Inclusive and Exclusive Metrics</h3>
+
+<p>In the remainder, these two concepts occur quite often and for lack of a better
+place, they are explained here.
+</p>
+<span id="index-Inclusive-metric"></span>
+<p>The <em>inclusive</em> value for a metric includes all values that are part of
+the dynamic extent of the target function. For example if function <code>A</code>
+calls functions <code>B</code> and <code>C</code>, the inclusive CPU time for <code>A</code> 
+includes the CPU time spent in <code>B</code> and <code>C</code>.
+</p>
+<span id="index-Exclusive-metric"></span>
+<p>In contrast with this, the <em>exclusive</em> value for a metric is computed
+by excluding the metric values used by other functions called. In our imaginary
+example, the exclusive CPU time for function <code>A</code> is the time spent outside
+calling functions <code>B</code> and <code>C</code>.
+</p>
+<span id="index-Leaf-function"></span>
+<p>In case of a <em>leaf function</em>, the inclusive and exclusive values for the 
+metric are the same since by definition, it is not calling any other 
+function(s).
+</p>
+<p>Why do we use these two different values? The inclusive metric shows the most
+expensive path, in terms of this metric, in the application. For example, if
+the metric is cache misses, the function with the highest inclusive metric
+tells you where most of the cache misses come from.
+</p>
+<p>Within this branch of the application, the exclusive metric points to the
+functions that contribute and help to identify which part(s) to consider
+for further analysis.
+</p>
+<hr>
+<span id="Metric-Definitions"></span><div class="header">
+<p>
+Next: <a href="#The-Viewmode" accesskey="n" rel="next">The Viewmode</a>, Previous: <a href="#Inclusive-and-Exclusive-Metrics" accesskey="p" rel="prev">Inclusive and Exclusive Metrics</a>, Up: <a href="#Terminology" accesskey="u" rel="up">Terminology</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Metric-Definitions-1"></span><h3 class="section">4.3 Metric Definitions</h3>
+<p>The metrics to be shown are highly customizable. In this section we explain 
+the definitions associated with metrics.
+</p>
+<span id="index-Commands_002c-metrics-2"></span>
+<p>The <code>metrics</code> command takes a colon (:) separated list with special
+keywords. This keyword consists of the following three fields: 
+<code>&lt;flavor&gt;</code><code>&lt;visibility&gt;</code><code>&lt;metric_name&gt;</code>.
+</p>
+<span id="index-Flavor-field"></span>
+<span id="index-Visibility-field-1"></span>
+<span id="index-Metric-name-field"></span>
+<p>The <em>&lt;flavor&gt;</em> field is either an <code>e</code> for &ldquo;exclusive&rdquo;, or <code>i</code>
+for &ldquo;inclusive&rdquo;. The <code>&lt;metric_name&gt;</code> field is the name of the metric
+request. The <em>&lt;visibility&gt;</em> field consists of one ore more characters
+from the following table:
+</p>
+<dl compact="compact">
+<dt><code>.</code></dt>
+<dd><p>Show the metric as time. This applies to timing metrics and hardware event counters
+that measure cycles. Interpret as <code>+</code> for other metrics.
+</p>
+</dd>
+<dt><code>%</code></dt>
+<dd><p>Show the metric as a percentage of the total value for this metric.
+</p>
+</dd>
+<dt><code>+</code></dt>
+<dd><p>Show the metric as an absolute value. For hardware event counters this is
+the event count. Interpret as <code>.</code> for timing metrics.
+</p>
+</dd>
+<dt><code>|</code></dt>
+<dd><p>Do not show any metric value. Cannot be used with other visibility characters.
+</p>
+</dd>
+</dl>
+
+<hr>
+<span id="The-Viewmode"></span><div class="header">
+<p>
+Next: <a href="#The-Selection-List" accesskey="n" rel="next">The Selection List</a>, Previous: <a href="#Metric-Definitions" accesskey="p" rel="prev">Metric Definitions</a>, Up: <a href="#Terminology" accesskey="u" rel="up">Terminology</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="The-Viewmode-1"></span><h3 class="section">4.4 The Viewmode</h3>
+
+<span id="index-Viewmode"></span>
+<span id="index-Commands_002c-viewmode-1"></span>
+
+<p>There are different ways to view a call stack in Java. In <code>gprofng</code>, this
+is called the <em>viewmode</em> and the setting is controlled through a command
+with the same name.
+</p>
+<p>The <code>viewmode</code> command takes one of the following keywords:
+</p>
+<dl compact="compact">
+<dt><code>user</code></dt>
+<dd><p>This is the default and shows the Java call stacks for Java threads.
+No call stacks for any housekeeping threads are shown. The function 
+list contains a function 
+<span id="index-Java-profiling_002c-_003cJVM_002dSystem_003e"></span>
+<code>&lt;JVM-System&gt;</code> that represents the aggregated time from non-Java
+threads.
+When the JVM software does not report a Java call stack, time is reported
+against the function 
+<span id="index-Java-profiling_002c-_003cno-Java-callstack-recorded_003e"></span>
+<code>&lt;no Java callstack recorded&gt;</code>.
+</p>
+
+</dd>
+<dt><code>expert</code></dt>
+<dd><p>Show the Java call stacks for Java threads when the Java code from the
+user is executed and machine call stacks when JVM code is executed, or 
+when the JVM software does not report a Java call stack. 
+Show the machine call stacks for housekeeping threads.
+</p>
+</dd>
+<dt><code>machine</code></dt>
+<dd><p>Show the actual native call stacks for all threads.
+</p>
+</dd>
+</dl>
+
+<hr>
+<span id="The-Selection-List"></span><div class="header">
+<p>
+Next: <a href="#Load-Objects-and-Functions" accesskey="n" rel="next">Load Objects and Functions</a>, Previous: <a href="#The-Viewmode" accesskey="p" rel="prev">The Viewmode</a>, Up: <a href="#Terminology" accesskey="u" rel="up">Terminology</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="The-Selection-List-1"></span><h3 class="section">4.5 The Selection List</h3>
+
+<span id="index-Selection-list"></span>
+<span id="index-List-specification"></span>
+<p>Several commands allow the user to specify a subset of a list. For example,
+to select specific threads from all the threads that have been used when 
+conducting the experiment(s). 
+</p>
+<p>Such a selection list (or &ldquo;list&rdquo; in the remainder of this section) can be a 
+single number, a contiguous range of numbers with the start and end numbers 
+separated by a hyphen (<code>-</code>), a comma-separated list of numbers and 
+ranges, or the <code>all</code> keyword. Lists must not contain spaces. 
+</p>
+<p>Each list can optionally be preceded by an experiment list with a similar 
+format, separated from the list by a colon (:). 
+If no experiment list is included, the list applies to all experiments.
+</p>
+<p>Multiple lists can be concatenated by separating the individual lists 
+by a plus sign.
+</p>
+<p>These are some examples of various filters using a list:
+</p>
+<dl compact="compact">
+<dt><code>thread_select 1</code></dt>
+<dd><p>Select thread 1 from all experiments.
+</p>
+</dd>
+<dt><code>thread_select all:1</code></dt>
+<dd><p>Select thread 1 from all experiments.
+</p>
+</dd>
+<dt><code>thread_select 1:1+2:2</code></dt>
+<dd><p>Select thread 1 from experiment 1 and thread 2 from experiment 2.
+</p>
+</dd>
+<dt><code>cpu_select all:1,3,5</code></dt>
+<dd><p>Selects cores 1, 3, and 5 from all experiments.
+</p>
+</dd>
+<dt><code>cpu_select 1,2:all</code></dt>
+<dd><p>Select all cores from experiments 1 and 2, as listed by the <code>by exp_list</code> command.
+</p>
+</dd>
+</dl>
+
+<hr>
+<span id="Load-Objects-and-Functions"></span><div class="header">
+<p>
+Next: <a href="#The-Concept-of-a-CPU-in-gprofng" accesskey="n" rel="next">The Concept of a CPU in gprofng</a>, Previous: <a href="#The-Selection-List" accesskey="p" rel="prev">The Selection List</a>, Up: <a href="#Terminology" accesskey="u" rel="up">Terminology</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Load-Objects-and-Functions-1"></span><h3 class="section">4.6 Load Objects and Functions</h3>
+
+<p>An application consists of various components. The source code files are 
+compiled into object files. These are then glued together at link time to form
+the executable. 
+During execution, the program may also dynamically load objects.
+</p>
+<span id="index-Load-object"></span>
+<p>A <em>load object</em> is defined to be an executable, or shared object. A shared
+library is an example of a load object in <code>gprofng</code>.
+</p>
+<p>Each load object, contains a text section with the instructions generated by the 
+compiler, a data section for data, and various symbol tables.
+All load objects must contain an 
+<span id="index-ELF"></span>
+ELF 
+symbol table, which gives the names and addresses of all the globally known 
+functions in that object. 
+</p>
+<p>Load objects compiled with the -g option contain additional symbolic information 
+that can augment the ELF symbol table and provide information about functions that 
+are not global, additional information about object modules from which the functions 
+came, and line number information relating addresses to source lines.
+</p>
+<p>The term
+<span id="index-Function"></span>
+<em>function</em>
+is used to describe a set of instructions that represent a high-level operation 
+described in the source code. The term also covers methods as used in C++ and in
+the Java programming language. 
+</p>
+<p>In the <code>gprofng</code> context, functions are provided in source code format. 
+Normally their names appear in the symbol table representing a set of addresses. 
+<span id="index-Program-Counter-1"></span>
+<span id="index-PC-1"></span>
+If the Program Counter (PC) is within that set, the program is executing within that function.
+</p>
+<p>In principle, any address within the text segment of a load object can be mapped to a 
+function. Exactly the same mapping is used for the leaf PC and all the other PCs on the 
+call stack. 
+</p>
+<p>Most of the functions correspond directly to the source model of the program, but 
+there are exceptions. This topic is however outside of the scope of this guide.
+</p>
+<hr>
+<span id="The-Concept-of-a-CPU-in-gprofng"></span><div class="header">
+<p>
+Next: <a href="#Hardware-Event-Counters-Explained" accesskey="n" rel="next">Hardware Event Counters Explained</a>, Previous: <a href="#Load-Objects-and-Functions" accesskey="p" rel="prev">Load Objects and Functions</a>, Up: <a href="#Terminology" accesskey="u" rel="up">Terminology</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="The-Concept-of-a-CPU-in-gprofng-1"></span><h3 class="section">4.7 The Concept of a CPU in gprofng</h3>
+
+<span id="index-CPU"></span>
+<p>In gprofng, there is the concept of a CPU. Admittedly, this is not the
+best word to describe what is meant here and may be replaced in the future.
+</p>
+<p>The word CPU is used in many of the displays.
+In the context of gprofng, it is meant to denote a part of the 
+processor that is capable of executing instructions and with its own state, 
+like the program counter.
+</p>
+<p>For example, on a contemporary processor, a CPU could be a core. In case
+hardware threads are supported within a core, it could be one of those
+hardware threads.
+</p>
+<hr>
+<span id="Hardware-Event-Counters-Explained"></span><div class="header">
+<p>
+Next: <a href="#apath" accesskey="n" rel="next">apath</a>, Previous: <a href="#The-Concept-of-a-CPU-in-gprofng" accesskey="p" rel="prev">The Concept of a CPU in gprofng</a>, Up: <a href="#Terminology" accesskey="u" rel="up">Terminology</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Hardware-Event-Counters-Explained-1"></span><h3 class="section">4.8 Hardware Event Counters Explained</h3>
+
+<span id="index-Hardware-event-counters_002c-description"></span>
+<p>For quite a number of years now, many microprocessors have supported hardware 
+event counters. 
+</p>
+<p>On the hardware side, this means that in the processor there are one or more 
+registers dedicated to count certain activities, or &ldquo;events&rdquo;.
+Examples of such events are the number of instructions executed, or the number 
+of cache misses at level 2 in the memory hierarchy.
+</p>
+<p>While there is a limited set of such registers, the user can map events onto
+them. In case more than one register is available, this allows for the 
+simultaenous measurement of various events.
+</p>
+<p>A simple, yet powerful, example is to simultaneously count the number of CPU 
+cycles and the number of instructions excuted. These two numbers can then be
+used to compute the 
+<span id="index-IPC"></span>
+<em>IPC</em> value. IPC stands for &ldquo;Instructions Per Clockcycle&rdquo; and each processor 
+has a maximum. For example, if this maximum number is 2, it means the 
+processor is capable of executing two instructions every clock cycle.
+</p>
+<p>Whether this is actually achieved, depends on several factors, including the
+instruction characteristics.
+However, in case the IPC value is well below this maximum in a time critical 
+part of the application and this cannot be easily explained, further 
+investigation is probably warranted.
+</p>
+<span id="index-CPI"></span>
+<p>A related metric is called <em>CPI</em>, or &ldquo;Clockcycles Per Instruction&rdquo;.
+It is the inverse of the CPI and can be compared against the theoretical
+value(s) of the target instruction(s). A significant difference may point
+at a bottleneck.
+</p>
+<p>One thing to keep in mind is that the value returned by a counter can either
+be the number of times the event occured, or a CPU cycle count. In case of 
+the latter it is possible to convert this number to time.
+</p>
+<span id="index-Hardware-event-counters_002c-variable-CPU-frequency"></span>
+<p>This is often easier to interpret than a simple count, but there is one
+caveat to keep in mind. The CPU frequency may not have been constant while
+the experimen was recorded and this impacts the time reported.
+</p>
+<p>These event counters, or &ldquo;counters&rdquo; for short, provide great insight into
+what happens deep inside the processor. In case higher level information does
+not provide the insight needed, the counters provide the information to get 
+to the bottom of a performance problem.
+</p>
+<p>There are some things to consider though. 
+</p>
+<ul>
+<li> The event definitions and names vary across processors and it may even happen 
+that some events change with an update.
+Unfortunately and this is luckily rare, there are sometimes bugs causing the 
+wrong count to be returned.
+
+<span id="index-Hardware-event-counters_002c-alias-name"></span>
+<p>In <code>gprofng</code>, some of the processor specific event names have an alias 
+name. For example <code>insts</code> measures the instructions executed. 
+These aliases not only makes it easier to identify the functionality, but also 
+provide portability of certain events across processors.
+</p>
+</li><li> Another complexity is that there are typically many events one can monitor.
+There may up to hundreds of events available and it could require several
+experiments to zoom in on the root cause of a performance problem.
+
+</li><li> There may be restrictions regarding the mapping of event(s) onto the 
+counters. For example, certain events may be restricted to specific 
+counters only. As a result, one may have to conduct additional experiments
+to cover all the events of interest.
+
+</li><li> The names of the events may also not be easy to interpret. In such cases,
+the description can be found in the architecture manual for the processor.
+
+</li></ul>
+
+<p>Despite these drawbacks, hardware event counters are extremely useful and
+may even turn out to be indispensable.
+</p>
+<hr>
+<span id="apath"></span><div class="header">
+<p>
+Previous: <a href="#Hardware-Event-Counters-Explained" accesskey="p" rel="prev">Hardware Event Counters Explained</a>, Up: <a href="#Terminology" accesskey="u" rel="up">Terminology</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="What-is-_003capath_003e_003f"></span><h3 class="section">4.9 What is &lt;apath&gt;?</h3>
+
+<p>In most cases, <code>gprofng</code> shows the absolute pathnames of directories. These
+tend to be rather long, causing display issues in this document. 
+</p>
+<p>Instead of wrapping these long pathnames over multiple lines, we decided to 
+represent them by the <code>&lt;apath&gt;</code> symbol, which stands for &ldquo;an absolute 
+pathname&rdquo;.
+</p>
+<p>Note that different occurrences of <code>&lt;apath&gt;</code> may represent different
+absolute pathnames.
+</p>
+<hr>
+<span id="Other-Document-Formats"></span><div class="header">
+<p>
+Previous: <a href="#Terminology" accesskey="p" rel="prev">Terminology</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<span id="Other-Document-Formats-1"></span><h2 class="chapter">5 Other Document Formats</h2>
+
+<p>This document is written in Texinfo and the source text is made available as
+part of the binutils distribution. The file name is <code>gprofng.texi</code> and
+can be found in subdirectory <code>doc</code> under directory <code>gprofng</code> in the 
+top level directory.
+</p>
+<p>This file can be used to generate the document in the <code>info</code>, <code>html</code>, 
+and <code>pdf</code> formats.
+The default installation procedure creates a file in the <code>info</code> format and 
+stores it in the documentation section of binutils.
+</p>
+<p>The probably easiest way to generate a different format from this Texinfo 
+document is to go to the distribution directory that was created when the 
+tools were built.
+This is either the default distribution directory, or the one that has been set
+with the <code>--prefix</code> option as part of the <code>configure</code> command.
+In this example we symbolize this location with <code>&lt;dist&gt;</code>.
+</p>
+<p>The make file called <code>Makefile</code> in directory <code>&lt;dist&gt;/gprofng/doc</code>
+supports several commands to generate this document in different formats. 
+We recommend to use these commands.
+</p>
+<p>They create the file(s) and install it in the documentation directory of binutils,
+which is <code>&lt;dist&gt;/share/doc</code> in case <code>html</code> or <code>pdf</code> is selected and
+<code>&lt;dist&gt;/share/info</code> for the file in the <code>info</code> format.
+</p>
+<p>To generate this document in the requested format and install it in the documentation 
+directory, the commands below should be executed. In this notation, <code>&lt;format&gt;</code> 
+is one of <code>info</code>, <code>html</code>, or <code>pdf</code>:
+</p>
+<div class="example">
+<pre class="verbatim">$ cd &lt;dist&gt;/gprofng/doc
+$ make install-&lt;format&gt;
+</pre></div>
+
+<p>Some things to note:
+</p>
+<ul>
+<li> For the <code>pdf</code> file to be generated, the 
+<span id="index-TeX"></span>
+TeX document formatting software is required and the relevant commmands need
+to be included in the search path. An example of a popular TeX implementation 
+is <em>TexLive</em>. It is beyond the scope of this document to go into the
+details of installing and using TeX, but it is well documented elsewhere.
+
+</li><li> Instead of generating a single file in the <code>html</code> format, it is also 
+possible to create a directory with individual files for the various chapters. 
+To do so, remove the use of <code>--no-split</code> in variable <code>MAKEINFOHTML</code>
+in the make file in the <code>doc</code> directory.
+
+</li><li> The make file also supports commands to only generate the file in the desired
+format and not move them to the documentation directory. This is
+accomplished through the <code>make &lt;format&gt;</code> command.
+
+</li></ul>
+
+
+<hr>
+
+
+
+</body>
+</html>
